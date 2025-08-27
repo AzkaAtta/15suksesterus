@@ -1,0 +1,23 @@
+---
+/** JSON-LD Organization (aman dari koma nyasar, dll) */
+const data = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Aura Digital",
+  "url": "https://auradigital.id",
+  "logo": "https://auradigital.id/logo.png", // pastikan file ada di /public/logo.png
+  "sameAs": [
+    "https://www.instagram.com/auradigitalid",
+    "https://www.tiktok.com/@auradigitalid"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+62-895-4003-61414",
+    "contactType": "customer service",
+    "availableLanguage": ["Indonesian","English"]
+  }
+};
+---
+<script type="application/ld+json">
+  {JSON.stringify(data)}
+</script>
