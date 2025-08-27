@@ -5,10 +5,50 @@ import Feature from '@components/Feature.astro'
 import Counter from '@components/Counter.astro'
 import ContentMedia from '@components/ContentMedia.astro'
 import ExternalLink from '@components/ExternalLink.astro'
+import SiteMeta from '@components/SiteMeta.astro'
 import { Accordion, AccordionItem, Avatar, AvatarGroup } from 'accessible-astro-components'
 ---
 
 <DefaultLayout title="Home">
+  <!-- ✅ Schema & meta untuk homepage -->
+  <Fragment slot="head">
+    <SiteMeta
+      title="Jasa Sosial Media & SMM Panel | Aura Digital"
+      description="Layanan buzzer & manajemen sosial media: followers, likes, views, komentar. Aman, cepat, transparan."
+      url="https://auradigital.id/"
+      image="/og-home.jpg"
+      siteName="Aura Digital"
+      type="website"
+      keywords={[
+        "jasa sosial media",
+        "jasa buzzer",
+        "smm panel",
+        "followers instagram",
+        "views tiktok"
+      ]}
+    />
+
+    <!-- ✅ Schema Organization -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Aura Digital",
+        "url": "https://auradigital.id",
+        "logo": "https://auradigital.id/logo.png",
+        "sameAs": [
+          "https://www.instagram.com/auradigitalid",
+          "https://www.tiktok.com/@auradigitalid"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+62-895-4003-61414",
+          "contactType": "customer service",
+          "availableLanguage": ["Indonesian","English"]
+        }
+      })}
+    </script>
+  </Fragment>
   <Hero />
   <section class="my-64">
     <div class="container">
