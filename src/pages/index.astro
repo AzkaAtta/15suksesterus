@@ -80,36 +80,25 @@ import CarouselProcess from '@components/CarouselProcess.astro'   // 👈 tambah
   </div>
 </section>
 
-  <CarouselProcess
-  slides={[
-    {
-      imgSrc: '/proses-pilih.webp',
-      title: 'Pilih Layanan',
-      text: 'Kami menyediakan berbagai pilihan layanan sosial media, mulai dari penambah followers, likes, komentar, views, hingga trending topik. Anda cukup memilih paket sesuai kebutuhan bisnis atau personal branding tanpa ribet.'
-    },
-    {
-      imgSrc: '/proses-bayar.jpg',
-      title: 'Lakukan Pembayaran',
-      text: 'Proses pembayaran bisa dilakukan dengan berbagai metode yang aman dan terpercaya. Setelah Anda melakukan konfirmasi pembayaran, sistem kami akan langsung memvalidasi agar pesanan segera diproses.'
-    },
-    {
-      imgSrc: '/proses-otomatis.jpg',
-      title: 'Proses Otomatis',
-      text: 'Semua pesanan berjalan melalui sistem otomatis yang stabil. Anda tidak perlu menunggu manual, karena layanan langsung diproses dalam hitungan menit setelah pembayaran berhasil diterima.'
-    },
-    {
-      imgSrc: '/proses-monitor.jpg',
-      title: 'Monitoring Order',
-      text: 'Setiap order dapat dipantau secara real-time melalui sistem kami. Status progress ditampilkan secara transparan, sehingga Anda bisa melihat sejauh mana layanan sudah berjalan tanpa perlu bertanya berkali-kali.'
-    },
-    {
-      imgSrc: '/proses-selesai.jpg',
-      title: 'Hasil Terkirim',
-      text: 'Pesanan Anda akan terselesaikan sesuai target yang dipilih. Hasil dikirim dengan cepat, aman, dan terukur sehingga Anda bisa langsung merasakan dampaknya pada akun sosial media yang dikelola.'
-    }
-  ]}
-/>
+    <ContentMedia imgSrc="/accessible-components.webp">
+  <h2>Accessible components</h2>
+  <p class="text-2xl">
+    This theme provides plenty of tried and tested Accessible Astro Components. Some are native to this theme and a
+    lot of others are integrated using a
+    <ExternalLink href="https://github.com/incluud/accessible-astro-components">separate package</ExternalLink>.
+    They'll get you up and running in building an accessible solution for your visitors.
+  </p>
+</ContentMedia>
 
+<ContentMedia imgSrc="/wcag-compliant.webp" reverseImg={true}>
+  <h2>WCAG 2.2 AA compliant</h2>
+  <p class="text-2xl">
+    Using semantic HTML, landmarks, skip links, screen reader friendly content, aria-labels, keyboard accessible
+    navigation and components, clear outlines and tab indicators and the right color contrast, you're more certain of
+    reaching WCAG AA compliance.
+  </p>
+</ContentMedia>
+  
   <section class="my-64">
     <div class="container grid grid-cols-1 gap-12 md:grid-cols-2">
       <div class="flex flex-col items-start gap-4">
