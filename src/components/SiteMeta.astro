@@ -42,25 +42,5 @@ const {
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={`${Astro.site}${image}`} />
 
-<script type="application/ld+json">
-  {JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": siteName,
-    "url": url,
-    "logo": `${Astro.site}/logo.png`,
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+62-895-4003-61414",
-      "contactType": "customer service",
-      "availableLanguage": ["Indonesian", "English"]
-    },
-    "sameAs": [
-      "https://www.instagram.com/auradigitalid",
-      "https://www.tiktok.com/@auradigitalid"
-    ]
-  }, null, 2)}
-</script>
-
 <!-- Page Title -->
 <title>{title}</title>
