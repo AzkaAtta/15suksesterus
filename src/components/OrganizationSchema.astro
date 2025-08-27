@@ -1,23 +1,38 @@
 ---
-/** JSON-LD Organization (aman dari koma nyasar, dll) */
+interface Props {
+  name?: string
+  url?: string
+  logo?: string
+  sameAs?: string[]
+  telephone?: string
+  languages?: string[]
+}
+
+const {
+  name = 'Aura Digital',
+  url = 'https://auradigital.id',
+  logo = 'https://auradigital.id/logo.png', // pastikan file ada, bisa PNG/SVG (≥112×112 untuk PNG)
+  sameAs = [
+    'https://www.instagram.com/auradigitalid',
+    'https://www.tiktok.com/@auradigitalid',
+  ],
+  telephone = '+62-895-4003-61414',
+  languages = ['Indonesian', 'English'],
+}: Props = Astro.props
+
 const data = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Aura Digital",
-  "url": "https://auradigital.id",
-  "logo": "https://auradigital.id/logo.png", // pastikan file ada di /public/logo.png
-  "sameAs": [
-    "https://www.instagram.com/auradigitalid",
-    "https://www.tiktok.com/@auradigitalid"
-  ],
-  "contactPoint": {
+  name, url, logo,
+  sameAs,
+  contactPoint: {
     "@type": "ContactPoint",
-    "telephone": "+62-895-4003-61414",
-    "contactType": "customer service",
-    "availableLanguage": ["Indonesian","English"]
+    telephone,
+    contactType: "customer service",
+    availableLanguage: languages
   }
-};
+}
 ---
-<script type="application/ld+json">
-  {JSON.stringify(data)}
-</script>
+
+<!-- 🔥 KUNCI: gunakan set:html agar JSON disuntikkan mentah ke dalam script -->
+<script type="application/ld+json" set:html={JSON.stringify(data)}></script>
