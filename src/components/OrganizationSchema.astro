@@ -1,38 +1,116 @@
 ---
+/**
+ * HomepageSchemas.astro
+ * - Organization (atau LocalBusiness via typeOverride)
+ * - WebSite (+ SearchAction opsional)
+ * - WebPage (homepage)
+ */
+
 interface Props {
+  // Organization / LocalBusiness
+  typeOverride?: 'Organization' | 'LocalBusiness'
   name?: string
   url?: string
   logo?: string
   sameAs?: string[]
   telephone?: string
   languages?: string[]
+
+  // LocalBusiness (opsional)
+  address?: {
+    streetAddress?: string
+    addressLocality?: string
+    addressRegion?: string
+    postalCode?: string
+    addressCountry?: string
+  }
+  openingHours?: string // contoh: "Mo-Su 09:00-22:00"
+
+  // WebSite
+  hasSearch?: boolean
+  searchPath?: string // default: "/search"
+
+  // WebPage
+  pageName?: string
+  description?: string
 }
 
 const {
+  typeOverride = 'Organization',
   name = 'Aura Digital',
   url = 'https://auradigital.id',
-  logo = 'https://auradigital.id/logo.png', // pastikan file ada, bisa PNG/SVG (≥112×112 untuk PNG)
+  logo = 'https://auradigital.id/logo.png', // pastikan file ada (PNG ≥112x112 disarankan)
   sameAs = [
     'https://www.instagram.com/auradigitalid',
     'https://www.tiktok.com/@auradigitalid',
   ],
   telephone = '+62-895-4003-61414',
   languages = ['Indonesian', 'English'],
+
+  address = undefined,
+  openingHours = undefined,
+
+  hasSearch = false,
+  searchPath = '/search',
+
+  pageName = 'Aura Digital - Jasa Sosial Media & SMM Panel',
+  description = 'Layanan buzzer & manajemen sosial media: followers, likes, views, komentar. Aman, cepat, transparan.',
 }: Props = Astro.props
 
-const data = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name, url, logo,
+// 1) Organization / LocalBusiness
+const orgBase: Record<string, any> = {
+  '@context': 'https://schema.org',
+  '@type': typeOverride,
+  name,
+  url,
+  logo,
   sameAs,
   contactPoint: {
-    "@type": "ContactPoint",
+    '@type': 'ContactPoint',
     telephone,
-    contactType: "customer service",
-    availableLanguage: languages
+    contactType: 'customer service',
+    availableLanguage: languages,
+  },
+}
+if (typeOverride === 'LocalBusiness') {
+  if (address) {
+    orgBase.address = {
+      '@type': 'PostalAddress',
+      ...address,
+    }
+  }
+  if (openingHours) {
+    orgBase.openingHours = openingHours
   }
 }
+
+// 2) WebSite (+ SearchAction jika ada pencarian)
+const website: Record<string, any> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name,
+  url,
+}
+if (hasSearch) {
+  website.potentialAction = {
+    '@type': 'SearchAction',
+    target: `${url.replace(/\/$/, '')}${searchPath}?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  }
+}
+
+// 3) WebPage (Homepage)
+const webpage = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: pageName,
+  url: `${url.replace(/\/$/, '')}/`,
+  description,
+  isPartOf: { '@type': 'WebSite', url },
+}
+
+// Gabungkan sebagai array (satu script)
+const schemas = [orgBase, website, webpage]
 ---
 
-<!-- 🔥 KUNCI: gunakan set:html agar JSON disuntikkan mentah ke dalam script -->
-<script type="application/ld+json" set:html={JSON.stringify(data)}></script>
+<script type="application/ld+json" set:html={JSON.stringify(schemas)}></script>
