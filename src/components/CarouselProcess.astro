@@ -1,0 +1,130 @@
+---
+interface Slide {
+  imgSrc: string;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  slides: Slide[];
+  intervalMs?: number; // default 5000
+}
+
+const { slides = [], intervalMs = 5000 }: Props = Astro.props;
+const id = `process-carousel-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class="my-24" role="region" aria-label="Proses & Cara Kerja" id={id}>
+  <div class="container relative">
+    <!-- Slides -->
+    <ul class="relative">
+      {slides.map((s, i) => (
+        <li
+          class="grid grid-cols-1 items-center gap-12 md:grid-cols-2 transition-opacity duration-700 ease-out
+                 absolute inset-0 md:static"
+          data-slide
+          data-index={i}
+          style={`opacity:${i === 0 ? 1 : 0}; pointer-events:${i === 0 ? 'auto' : 'none'};`}
+        >
+          <!-- Zigzag: genap gambar di kiri, ganjil gambar di kanan -->
+          <div class={`order-1 ${i % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
+            <img src={s.imgSrc} alt="" class="w-full h-auto rounded-xl shadow-xl object-cover" loading="lazy" />
+          </div>
+
+          <div class={`order-2 ${i % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
+            <h2 class="text-4xl md:text-5xl mb-4">{s.title}</h2>
+            <p class="text-2xl opacity-0 transition-opacity duration-700 ease-out" data-fade-text>{s.text}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Controls -->
+    <div class="flex items-center justify-between mt-6 md:mt-10">
+      <div class="flex gap-3">
+        <button class="button" type="button" data-prev aria-label="Slide sebelumnya">‹</button>
+        <button class="button" type="button" data-next aria-label="Slide berikutnya">›</button>
+      </div>
+
+      <div class="flex gap-2" aria-label="Indikator slide">
+        {slides.map((_, i) => (
+          <button
+            type="button"
+            class="w-2.5 h-2.5 rounded-full bg-[var(--border-color)] data-[active=true]:bg-[var(--foreground-color)]"
+            data-dot
+            data-index={i}
+            aria-label={`Ke slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const root = document.getElementById(String.raw`${id}`);
+    if (!root) return;
+
+    const slides = [...root.querySelectorAll('[data-slide]')];
+    const dots = [...root.querySelectorAll('[data-dot]')];
+    const prevBtn = root.querySelector('[data-prev]');
+    const nextBtn = root.querySelector('[data-next]');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let idx = 0;
+    let timer: number | null = null;
+
+    const show = (n: number) => {
+      idx = (n + slides.length) % slides.length;
+      slides.forEach((el, i) => {
+        const active = i === idx;
+        (el as HTMLElement).style.opacity = active ? '1' : '0';
+        (el as HTMLElement).style.pointerEvents = active ? 'auto' : 'none';
+        // fade teks
+        const t = el.querySelector('[data-fade-text]') as HTMLElement | null;
+        if (t) t.style.opacity = active ? '1' : '0';
+      });
+      dots.forEach((d, i) => d.setAttribute('data-active', String(i === idx)));
+    };
+
+    const next = () => show(idx + 1);
+    const prev = () => show(idx - 1);
+
+    const start = () => {
+      if (prefersReduced) return;
+      stop();
+      timer = window.setInterval(next, Number({intervalMs}));
+    };
+    const stop = () => {
+      if (timer) { clearInterval(timer); timer = null; }
+    };
+
+    nextBtn?.addEventListener('click', () => { next(); start(); });
+    prevBtn?.addEventListener('click', () => { prev(); start(); });
+    dots.forEach((d) => d.addEventListener('click', () => { show(Number(d.getAttribute('data-index'))); start(); }));
+
+    // pause saat hover/focus
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+
+    // keyboard
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); start(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); start(); }
+    });
+
+    show(0);
+    start();
+  });
+</script>
+
+<style>
+  /* agar container slide stack saat mobile */
+  [data-slide] { position: absolute; }
+  @media (min-width: 768px) {
+    [data-slide] { position: relative; }
+  }
+</style>
