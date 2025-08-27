@@ -6,11 +6,11 @@ import Counter from '@components/Counter.astro'
 import ContentMedia from '@components/ContentMedia.astro'
 import ExternalLink from '@components/ExternalLink.astro'
 import SiteMeta from '@components/SiteMeta.astro'
+import OrganizationSchema from '@components/OrganizationSchema.astro'
 import { Accordion, AccordionItem, Avatar, AvatarGroup } from 'accessible-astro-components'
 ---
 
 <DefaultLayout title="Home">
-  <!-- ✅ Schema & meta untuk homepage -->
   <Fragment slot="head">
     <SiteMeta
       title="Jasa Sosial Media & SMM Panel | Aura Digital"
@@ -28,27 +28,10 @@ import { Accordion, AccordionItem, Avatar, AvatarGroup } from 'accessible-astro-
       ]}
     />
 
-    <!-- ✅ Schema Organization -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Aura Digital",
-        "url": "https://auradigital.id",
-        "logo": "https://auradigital.id/logo.png",
-        "sameAs": [
-          "https://www.instagram.com/auradigitalid",
-          "https://www.tiktok.com/@auradigitalid"
-        ],
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+62-895-4003-61414",
-          "contactType": "customer service",
-          "availableLanguage": ["Indonesian","English"]
-        }
-      })}
-    </script>
+    <!-- ✅ cukup panggil komponen schema -->
+    <OrganizationSchema />
   </Fragment>
+
   <Hero />
   <section class="my-64">
     <div class="container">
