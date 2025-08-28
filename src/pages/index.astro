@@ -130,36 +130,57 @@ import CarouselProcess from '@components/CarouselProcess.astro'   // 👈 tambah
 </ContentMedia>
 
   <section class="my-64">
-    <div class="container grid grid-cols-1 gap-12 md:grid-cols-2">
-      <div class="flex flex-col items-start gap-4">
-        <h2 class="text-6xl">FAQ</h2>
-        <p class="text-2xl">
-          This section demonstrates how to effectively use the Accordion component to organize and display frequently
-          asked questions in an accessible and user-friendly way.
-        </p>
-        <a class="button" href="/faq">Contact support team</a>
-      </div>
-      <div class="space-content">
-        <Accordion>
-          <AccordionItem name="exclusive" title="What is WCAG and why is it important?" open>
-            <p>WCAG (Web Content Accessibility Guidelines) is a set of internationally recognized standards for web accessibility…</p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="What's the difference between ARIA labels and alt text?">
-            <p>Alt text is specifically for describing images to screen reader users…</p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="Why is keyboard navigation important?">
-            <p>Keyboard navigation is essential for users who can't use a mouse…</p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="What is a sufficient color contrast ratio?">
-            <p>According to WCAG 2.2 AA standards, text should have a minimum contrast ratio of 4.5:1…</p>
-          </AccordionItem>
-          <AccordionItem name="exclusive" title="How do I make custom components accessible?">
-            <p>Use semantic HTML, proper keyboard support, appropriate ARIA attributes, and ensure adequate color contrast…</p>
-          </AccordionItem>
-        </Accordion>
-      </div>
+  <div class="container grid grid-cols-1 gap-12 md:grid-cols-2">
+    <div class="flex flex-col items-start gap-4">
+      <h2 class="text-6xl">FAQ</h2>
+      <p class="text-2xl">
+        Pertanyaan yang sering diajukan seputar jasa layanan sosial media di Aura Digital. 
+        Jika masih ada yang ingin ditanyakan, jangan ragu untuk menghubungi tim kami.
+      </p>
+      <a class="button" href="https://wa.me/62895400361414?text=Halo%20admin%2C%20saya%20punya%20pertanyaan%20tentang%20layanan">
+        Hubungi Admin
+      </a>
     </div>
-  </section>
+
+    <div class="space-content">
+      <Accordion>
+        <AccordionItem name="exclusive" title="Berapa lama pesanan diproses?" open>
+          <p>
+            Rata-rata pesanan diproses dalam hitungan menit hingga beberapa jam setelah pembayaran terkonfirmasi,
+            tergantung jenis layanan yang dipilih.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="exclusive" title="Apakah layanan ini aman untuk akun saya?">
+          <p>
+            Ya, kami selalu mengutamakan keamanan. Layanan dikerjakan secara bertahap dan natural sehingga akun tetap aman tanpa risiko banned.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="exclusive" title="Metode pembayaran apa saja yang tersedia?">
+          <p>
+            Kami menerima pembayaran via e-wallet (DANA, OVO, GoPay, ShopeePay), transfer bank (BCA, BNI, Mandiri, BRI),
+            dan kartu kredit/debit Visa & Mastercard.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="exclusive" title="Apakah ada garansi jika layanan tidak masuk?">
+          <p>
+            Tentu, jika layanan tidak sesuai dengan paket yang dipesan, kami akan memberikan garansi berupa penggantian
+            sesuai ketentuan yang berlaku.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="exclusive" title="Bagaimana cara saya melakukan pemesanan?">
+          <p>
+            Sangat mudah, cukup pilih layanan yang Anda inginkan lalu hubungi admin melalui WhatsApp. 
+            Tim kami akan memandu sampai pesanan selesai diproses.
+          </p>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  </div>
+</section>
 
   <section class="my-64">
     <div class="space-content container">
