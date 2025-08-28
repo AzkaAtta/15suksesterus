@@ -129,6 +129,66 @@ import { Icon } from 'astro-icon/components'
   </p>
 </ContentMedia>
 
+          <section class="my-64">
+  <div class="container grid grid-cols-1 gap-12 md:grid-cols-2">
+    <!-- Bagian Judul FAQ -->
+    <div class="flex flex-col items-start gap-4">
+      <h2 class="text-6xl">FAQ</h2>
+      <p class="text-2xl">
+        Beberapa pertanyaan yang sering diajukan seputar layanan kami. 
+        Jika pertanyaan Anda belum terjawab, silakan hubungi admin kami langsung.
+      </p>
+      <a
+        class="button bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl shadow-md transition"
+        href="https://wa.me/62895400361414?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20layanan%20Aura%20Digital"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Hubungi Admin via WhatsApp
+      </a>
+    </div>
+
+    <!-- Bagian Accordion -->
+    <div class="space-content">
+      <Accordion>
+        <AccordionItem name="faq1" title="Apakah layanan ini aman?" open>
+          <p>
+            Ya, semua layanan kami diproses manual oleh tim berpengalaman untuk menjaga keamanan akun Anda. 
+            Kami tidak meminta password atau data sensitif lainnya.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="faq2" title="Berapa lama proses layanan berjalan?">
+          <p>
+            Waktu pengerjaan tergantung jenis layanan. Rata-rata pesanan mulai diproses dalam 5–15 menit 
+            setelah pembayaran terkonfirmasi.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="faq3" title="Metode pembayaran apa saja yang tersedia?">
+          <p>
+            Kami menerima pembayaran melalui e-wallet (Dana, OVO, GoPay), transfer bank, serta kartu kredit Visa & Mastercard.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="faq4" title="Apakah ada garansi layanan?">
+          <p>
+            Ya, kami memberikan garansi sesuai ketentuan. Jika layanan tidak sesuai deskripsi, silakan hubungi admin 
+            untuk solusi atau penggantian.
+          </p>
+        </AccordionItem>
+
+        <AccordionItem name="faq5" title="Bagaimana cara memesan layanan?">
+          <p>
+            Anda cukup pilih layanan yang diinginkan, lakukan pembayaran, lalu tim kami akan segera memproses pesanan Anda. 
+            Jika masih bingung, klik tombol WhatsApp di atas untuk dibantu langsung.
+          </p>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  </div>
+</section>
+
 
   <section class="my-64">
   <div class="space-content container text-center">
