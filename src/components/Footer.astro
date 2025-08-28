@@ -2,87 +2,148 @@
 import CallToAction from './CallToAction.astro'
 import ExternalLink from './ExternalLink.astro'
 import Logo from './Logo.astro'
+import { Icon } from 'astro-icon/components'
 
-/**
- * Footer Component
- *
- * @description A component that displays the footer of the website
- */
 const currentYear = new Date().getFullYear()
 ---
 
 <footer>
+  <!-- CTA global di atas footer -->
   <CallToAction />
+
+  <!-- Link sections -->
   <section class="py-20">
     <h2 class="sr-only">Footer</h2>
-    <div class="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <div class="container grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <!-- Navigation -->
       <div class="flex flex-col gap-4">
         <h3 class="text-2xl font-bold">Navigation</h3>
         <ul class="flex flex-col gap-2">
           <li><a href="/">Home</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/layanan/">Layanan</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/kontak/">Kontak</a></li>
         </ul>
       </div>
+
+      <!-- Layanan -->
       <div class="flex flex-col gap-4">
-        <h3 class="text-2xl font-bold">Theme features</h3>
+        <h3 class="text-2xl font-bold">Layanan</h3>
         <ul class="flex flex-col gap-2">
-          <li><a href="/accessibility-statement">Accessibility statement</a></li>
-          <li><a href="/accessible-components">Accessible components</a></li>
-          <li><a href="/color-contrast-checker">Color contrast checker</a></li>
-          <li><a href="/markdown-page">Markdown page</a></li>
-          <li><a href="/mdx-page">MDX page</a></li>
-          <li><a href="/404-page">404 page</a></li>
+          <li><a href="/komentar-instagram/">Komentar Instagram</a></li>
+          <li><a href="/followers-instagram/">Followers Instagram</a></li>
+          <li><a href="/views-tiktok/">Views TikTok</a></li>
+          <li><a href="/trending-topik/">Trending Topik</a></li>
+          <li><a href="/jasa-report/">Jasa Report</a></li>
         </ul>
       </div>
+
+      <!-- Kontak & Sosial -->
       <div class="flex flex-col gap-4">
-        <h3 class="text-2xl font-bold">Developer tools</h3>
+        <h3 class="text-2xl font-bold">Kontak</h3>
         <ul class="flex flex-col gap-2">
           <li>
-            <ExternalLink href="https://www.w3.org/WAI/ARIA/apg/">ARIA Authoring Practices</ExternalLink>
-          </li>
-          <li>
-            <ExternalLink href="https://web.dev/articles/focus">Focus Management</ExternalLink>
-          </li>
-          <li>
-            <ExternalLink href="https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML"
-              >Semantic HTML Guide</ExternalLink
+            <a
+              href="https://wa.me/62895400361414?text=Halo%20admin%2C%20saya%20tertarik%20dengan%20jasa%20layanan%20sosial%20media"
+              aria-label="WhatsApp Aura Digital"
             >
+              WhatsApp: +62 895-4003-61414
+            </a>
           </li>
-          <li>
-            <ExternalLink href="https://www.tpgi.com/screen-reader-user-survey-results/"
-              >Screen Reader Survey</ExternalLink
-            >
-          </li>
+          <li><a href="mailto:halo@auradigital.id">Email: halo@auradigital.id</a></li>
+          <li>Jam kerja: 09.00–22.00 WIB (darurat 24/7)</li>
         </ul>
+
+        <div class="mt-4 flex items-center gap-3" aria-label="Ikuti kami di media sosial">
+          <a
+            class="soc"
+            href="https://wa.me/62895400361414"
+            aria-label="WhatsApp"
+          >
+            <Icon name="lucide:phone" size="18" />
+          </a>
+          <a
+            class="soc"
+            href="https://www.instagram.com/auradigitalid"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <Icon name="lucide:instagram" size="18" />
+          </a>
+          <a
+            class="soc"
+            href="https://www.tiktok.com/@auradigitalid"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <Icon name="lucide:music-2" size="18" />
+          </a>
+          <a
+            class="soc"
+            href="mailto:halo@auradigital.id"
+            aria-label="Email"
+          >
+            <Icon name="lucide:mail" size="18" />
+          </a>
+        </div>
       </div>
+
+      <!-- Brand & tip -->
       <div class="flex flex-col gap-4">
         <Logo loading="lazy" />
-        <p class="leading-[1.75]">
-          Tip: always test for screen reader support. Press <kbd>⌘</kbd> + <kbd>F5</kbd> to start VoiceOver or <kbd
-            >Win</kbd
-          >
-          + <kbd>Ctrl</kbd> + <kbd>Enter</kbd> for Narrator.
+        <p class="leading-[1.75] opacity-80">
+          Konsultasi gratis untuk rekomendasi paket terbaik. Klik tombol WhatsApp atau kirim email ke kami.
         </p>
       </div>
     </div>
   </section>
+
+  <!-- Bottom bar -->
   <section class="py-8">
-    <div class="container flex flex-col gap-4 md:flex-row md:justify-between">
-      <p>
-        &copy; {currentYear} - Starter Theme for <a href="https://astro.build/">Astro</a>.
-      </p>
-      <p>
-        Made with ❤️ by <a href="https://github.com/markteekman">Mark Teekman</a>. Part of <a
-          href="https://www.incluud.dev">Incluud</a
-        >.
-      </p>
+    <div class="container flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <p>&copy; {currentYear} – <strong>Aura Digital</strong>. All rights reserved.</p>
+
+      <nav aria-label="Legal links">
+        <ul class="flex flex-wrap items-center gap-4 text-sm">
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/terms/">Terms of Service</a></li>
+          <li><a href="/sitemap.xml">Sitemap</a></li>
+        </ul>
+      </nav>
     </div>
   </section>
 </footer>
 
-<style>
+<style lang="scss">
   section {
     border-top: 1px solid var(--border-color-subtle);
+  }
+
+  /* Tombol sosial bulat */
+  .soc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 40px;
+    block-size: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color-subtle);
+    background: linear-gradient(
+      135deg,
+      light-dark(var(--color-primary-100), var(--color-secondary-100)) 0%,
+      light-dark(var(--color-secondary-100), var(--color-primary-200)) 100%
+    );
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+
+    &:hover, &:focus {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 24px rgba(0,0,0,.12);
+      filter: saturate(1.15);
+      outline: none;
+    }
   }
 </style>
