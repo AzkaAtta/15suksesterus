@@ -1,0 +1,79 @@
+---
+interface FAQ { q: string; a: string }
+
+interface Props {
+  url?: string
+  siteName?: string
+  pageName?: string
+  description?: string
+  ogImage?: string
+  hasSearch?: boolean
+  searchPath?: string
+  faqItems?: FAQ[]
+}
+
+const {
+  url = 'https://auradigital.id',
+  siteName = 'Aura Digital',
+  pageName = 'Jasa Sosial Media – Aman, Murah & Terpercaya | Aura Digital',
+  description = 'Layanan buzzer & manajemen sosial media: followers, likes, views, komentar, trending topik. Aman, cepat, transparan.',
+  ogImage = 'https://auradigital.id/og-home.png',
+  hasSearch = false,
+  searchPath = '/search',
+  faqItems = [],
+}: Props = Astro.props
+
+const site = url.replace(/\/$/, '')
+
+const graph: any[] = [
+  {
+    '@type': 'WebSite',
+    '@id': `${site}/#website`,
+    url: `${site}/`,
+    name: siteName,
+    publisher: { '@id': `${site}/#organization` },
+    ...(hasSearch ? {
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${site}${searchPath}?q={search_term_string}`,
+        'query-input': 'required name=search_term_string'
+      }
+    } : {})
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${site}/#webpage`,
+    url: `${site}/`,
+    name: pageName,
+    description,
+    isPartOf: { '@id': `${site}/#website` },
+    primaryImageOfPage: { '@type': 'ImageObject', url: ogImage }
+  },
+  {
+    '@type': 'BreadcrumbList',
+    '@id': `${site}/#breadcrumb`,
+    itemListElement: [{
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `${site}/`
+    }]
+  }
+]
+
+if (faqItems.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': `${site}/#faq`,
+    mainEntity: faqItems.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a }
+    }))
+  })
+}
+
+const jsonld = { '@context': 'https://schema.org', '@graph': graph }
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
