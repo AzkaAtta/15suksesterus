@@ -8,13 +8,12 @@ const currentYear = new Date().getFullYear()
 ---
 
 <footer>
-  <!-- CTA global di atas footer -->
   <CallToAction />
 
-  <!-- Link sections -->
   <section class="py-20">
     <h2 class="sr-only">Footer</h2>
     <div class="container grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+      
       <!-- Navigation -->
       <div class="flex flex-col gap-4">
         <h3 class="text-2xl font-bold">Navigation</h3>
@@ -39,63 +38,47 @@ const currentYear = new Date().getFullYear()
         </ul>
       </div>
 
-      <!-- Kontak & Sosial -->
+      <!-- Kontak -->
       <div class="flex flex-col gap-4">
         <h3 class="text-2xl font-bold">Kontak</h3>
         <ul class="flex flex-col gap-2">
           <li>
-            <a
-              href="https://wa.me/62895400361414?text=Halo%20admin%2C%20saya%20tertarik%20dengan%20jasa%20layanan%20sosial%20media"
-              aria-label="WhatsApp Aura Digital"
-            >
+            <a href="https://wa.me/62895400361414" aria-label="WhatsApp Aura Digital">
               WhatsApp: +62 895-4003-61414
             </a>
           </li>
-          <li><a href="mailto:halo@auradigital.id">Email: halo@auradigital.id</a></li>
+          <li><a href="mailto:bisnis@auradigital.id">Email: bisnis@auradigital.id</a></li>
           <li>Jam kerja: 09.00–22.00 WIB (darurat 24/7)</li>
         </ul>
 
+        <!-- Sosmed icons -->
         <div class="mt-4 flex items-center gap-3" aria-label="Ikuti kami di media sosial">
-          <a
-            class="soc"
-            href="https://wa.me/62895400361414"
-            aria-label="WhatsApp"
-          >
+          <a class="soc" href="https://wa.me/62895400361414" aria-label="WhatsApp">
             <Icon name="lucide:phone" size="18" />
           </a>
-          <a
-            class="soc"
-            href="https://www.instagram.com/auradigitalid"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-          >
+          <a class="soc" href="https://www.instagram.com/jasa.liketerpercaya.id" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <Icon name="lucide:instagram" size="18" />
           </a>
-          <a
-            class="soc"
-            href="https://www.tiktok.com/@auradigitalid"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="TikTok"
-          >
+          <a class="soc" href="https://www.tiktok.com/@indobuzz" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
             <Icon name="lucide:music-2" size="18" />
           </a>
-          <a
-            class="soc"
-            href="mailto:halo@auradigital.id"
-            aria-label="Email"
-          >
+          <a class="soc" href="mailto:bisnis@auradigital.id" aria-label="Email">
             <Icon name="lucide:mail" size="18" />
+          </a>
+          <a class="soc" href="https://t.me/auradigitalID" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <Icon name="lucide:send" size="18" />
+          </a>
+          <a class="soc" href="https://twitter.com/auradigitalID" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <Icon name="lucide:twitter" size="18" />
           </a>
         </div>
       </div>
 
-      <!-- Brand & tip -->
+      <!-- Brand -->
       <div class="flex flex-col gap-4">
         <Logo loading="lazy" />
         <p class="leading-[1.75] opacity-80">
-          Konsultasi gratis untuk rekomendasi paket terbaik. Klik tombol WhatsApp atau kirim email ke kami.
+          <strong>Aura Digital</strong> – Layanan sosial media marketing & SMM panel terpercaya untuk meningkatkan visibilitas, engagement, dan pertumbuhan bisnis Anda.
         </p>
       </div>
     </div>
@@ -105,7 +88,6 @@ const currentYear = new Date().getFullYear()
   <section class="py-8">
     <div class="container flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <p>&copy; {currentYear} – <strong>Aura Digital</strong>. All rights reserved.</p>
-
       <nav aria-label="Legal links">
         <ul class="flex flex-wrap items-center gap-4 text-sm">
           <li><a href="/privacy/">Privacy Policy</a></li>
@@ -122,7 +104,6 @@ const currentYear = new Date().getFullYear()
     border-top: 1px solid var(--border-color-subtle);
   }
 
-  /* Tombol sosial bulat */
   .soc {
     display: inline-flex;
     align-items: center;
@@ -131,18 +112,14 @@ const currentYear = new Date().getFullYear()
     block-size: 40px;
     border-radius: 999px;
     border: 1px solid var(--border-color-subtle);
-    background: linear-gradient(
-      135deg,
-      light-dark(var(--color-primary-100), var(--color-secondary-100)) 0%,
-      light-dark(var(--color-secondary-100), var(--color-primary-200)) 100%
-    );
+    background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-secondary-100) 100%);
     box-shadow: 0 6px 18px rgba(0,0,0,.06);
     transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
 
     &:hover, &:focus {
-      transform: translateY(-2px) scale(1.03);
+      transform: translateY(-2px) scale(1.05);
       box-shadow: 0 10px 24px rgba(0,0,0,.12);
-      filter: saturate(1.15);
+      filter: saturate(1.2);
       outline: none;
     }
   }
