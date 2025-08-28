@@ -22,46 +22,41 @@ Header Component
       <a href="/">Home</a>  
     </li>  
     <li class="menu-item">  
+      <a href="/layanan/">Layanan</a>  
+    </li>  
+    <li class="menu-item">  
+      <a href="/about/">Tentang Kami</a>  
+    </li>  
+    <li class="menu-item">  
       <a href="/blog/">Blog</a>  
     </li>  
     <li class="menu-item">  
-      <a href="/portfolio/">Portfolio</a>  
+      <a href="/kontak/">Kontak</a>  
     </li>  
+
+    <!-- Dropdown Produk & Jasa -->
     <li class="menu-item has-dropdown">  
       <button aria-haspopup="true" aria-expanded="false">  
-        Theme features  
+        Produk & Jasa  
         <Icon name="lucide:chevron-down" size="32" />  
       </button>  
       <ul class="dropdown-menu">  
-        <li class="submenu-item">  
-          <a href="/accessibility-statement">Accessibility statement</a>  
-        </li>  
-        <li class="submenu-item">  
-          <a href="/accessible-components">Accessible components</a>  
-        </li>  
-        <li class="submenu-item">  
-          <a href="/color-contrast-checker">Color contrast checker</a>  
-        </li>  
-        <li class="submenu-item">  
-          <a href="/markdown-page/">Markdown page</a>  
-        </li>  
-        <li class="submenu-item">  
-          <a href="/mdx-page/">MDX page</a>  
-        </li>  
-        <li class="submenu-item">  
-          <a href="/404-page">404 page</a>  
-        </li>  
+        <li class="submenu-item"><a href="/komentar-instagram/">Komentar Instagram</a></li>  
+        <li class="submenu-item"><a href="/followers-instagram/">Followers Instagram</a></li>  
+        <li class="submenu-item"><a href="/views-tiktok/">Views TikTok</a></li>  
+        <li class="submenu-item"><a href="/trending-topik/">Trending Topik</a></li>  
+        <li class="submenu-item"><a href="/jasa-report/">Jasa Report</a></li>  
       </ul>  
     </li>  
+
+    <!-- CTA Chat Admin WhatsApp -->
     <li class="menu-item highlight">  
-      <a href="https://accessible-astro.incluud.dev/">Docs </a>  
-    </li>  
-    <li class="menu-item type-icon animate-rotate">  
-      <a href="https://github.com/incluud/accessible-astro-starter">  
-        <Icon name="lucide:github" />  
-        <span class="sr-only">Go to the GitHub page</span>  
+      <a href="https://wa.me/62895400361414?text=Halo%20admin%2C%20saya%20ingin%20konsultasi%20layanan.">  
+        Chat Admin  
       </a>  
     </li>  
+
+    <!-- Darkmode toggle -->
     <li class="menu-item type-icon animate-rotate">  
       <DarkMode>  
         <Icon name="lucide:moon" slot="light" />  
@@ -69,7 +64,9 @@ Header Component
       </DarkMode>  
     </li>  
   </Navigation>  
-</header>  <style lang="scss" is:global>  
+</header>
+  
+<style lang="scss" is:global>  
   header {  
     .type-icon {  
       display: block;  
