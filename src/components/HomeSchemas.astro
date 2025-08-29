@@ -2,78 +2,81 @@
 interface FAQ { q: string; a: string }
 
 interface Props {
-  url?: string
+  site?: string                // asal domain, tanpa trailing slash
   siteName?: string
-  pageName?: string
+  pageUrl?: string             // canonical URL halaman ini
+  pageTitle?: string
   description?: string
-  ogImage?: string
+  image?: string               // absolute URL gambar og
   hasSearch?: boolean
-  searchPath?: string
-  faqItems?: FAQ[]
+  searchPath?: string          // path untuk SearchAction, ex: /search
+  faqItems?: FAQ[]             // [{ q, a }, ...]
 }
 
 const {
-  url = 'https://auradigital.id',
+  site = 'https://auradigital.id',
   siteName = 'Aura Digital',
-  pageName = 'Jasa Sosial Media – Aman, Murah & Terpercaya | Aura Digital',
+  pageUrl = 'https://auradigital.id/',
+  pageTitle = 'Jasa Sosial Media – Aman, Murah & Terpercaya | Aura Digital',
   description = 'Layanan buzzer & manajemen sosial media: followers, likes, views, komentar, trending topik. Aman, cepat, transparan.',
-  ogImage = 'https://auradigital.id/og-home.png',
-  hasSearch = false,
+  image = 'https://auradigital.id/og-home.png',
+  hasSearch = true,
   searchPath = '/search',
   faqItems = [],
 }: Props = Astro.props
 
-const site = url.replace(/\/$/, '')
+const origin = site.replace(/\/$/, '')
+const canonical = pageUrl.replace(/\/?$/, '/')
 
 const graph: any[] = [
   {
     '@type': 'WebSite',
-    '@id': `${site}/#website`,
-    url: `${site}/`,
+    '@id': `${origin}/#website`,
+    url: `${origin}/`,
     name: siteName,
-    publisher: { '@id': `${site}/#organization` },
-    ...(hasSearch ? {
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: `${site}${searchPath}?q={search_term_string}`,
-        'query-input': 'required name=search_term_string'
-      }
-    } : {})
+    publisher: { '@id': `${origin}/#organization` },
+    ...(hasSearch
+      ? {
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: `${origin}${searchPath}?q={search_term_string}`,
+            'query-input': 'required name=search_term_string',
+          },
+        }
+      : {}),
   },
   {
     '@type': 'WebPage',
-    '@id': `${site}/#webpage`,
-    url: `${site}/`,
-    name: pageName,
+    '@id': `${origin}/#webpage`,
+    url: canonical,
+    name: pageTitle,
     description,
-    isPartOf: { '@id': `${site}/#website` },
-    primaryImageOfPage: { '@type': 'ImageObject', url: ogImage }
+    isPartOf: { '@id': `${origin}/#website` },
+    primaryImageOfPage: { '@type': 'ImageObject', url: image },
   },
   {
     '@type': 'BreadcrumbList',
-    '@id': `${site}/#breadcrumb`,
-    itemListElement: [{
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: `${site}/`
-    }]
-  }
+    '@id': `${origin}/#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+    ],
+  },
 ]
 
+// FAQ opsional
 if (faqItems.length) {
   graph.push({
     '@type': 'FAQPage',
-    '@id': `${site}/#faq`,
+    '@id': `${origin}/#faq`,
     mainEntity: faqItems.map(({ q, a }) => ({
       '@type': 'Question',
       name: q,
-      acceptedAnswer: { '@type': 'Answer', text: a }
-    }))
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
   })
 }
 
 const jsonld = { '@context': 'https://schema.org', '@graph': graph }
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonld)} />
