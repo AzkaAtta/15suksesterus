@@ -1,34 +1,15 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import SiteMeta from '@components/SiteMeta.astro'
+import HomeSchemas from '@components/HomeSchemas.astro'
+import OrganizationSchema from '@components/OrganizationSchema.astro'
+
 import Hero from '@components/Hero.astro'
 import Feature from '@components/Feature.astro'
 import Counter from '@components/Counter.astro'
 import ContentMedia from '@components/ContentMedia.astro'
 import { Accordion, AccordionItem } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
-
-const org = {
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "@id":"https://auradigital.id/#organization",
-  "name":"Aura Digital",
-  "url":"https://auradigital.id/",
-  "logo":{"@type":"ImageObject","url":"https://auradigital.id/logo-auradigital.png"}
-}
-
-const home = {
-  "@context":"https://schema.org",
-  "@graph":[
-    {
-      "@type":"WebSite",
-      "@id":"https://auradigital.id/#website",
-      "url":"https://auradigital.id/",
-      "name":"Aura Digital",
-      "publisher":{"@id":"https://auradigital.id/#organization"}
-    }
-  ]
-}
 ---
 
 <DefaultLayout title="Home">
@@ -40,10 +21,19 @@ const home = {
       image="/og-home.png"
       siteName="Aura Digital"
       ogType="website"
+      keywords={[
+        "jasa sosial media murah",
+        "smm panel terpercaya",
+        "cara meningkatkan followers",
+        "tips optimasi engagement",
+        "bagaimana menambah like otomatis",
+        "kenapa sosial media penting"
+      ]}
     />
-    <meta name="schema-test" content="home-ldjson" />
-    <script is:inline type="application/ld+json">{JSON.stringify(org)}</script>
-    <script is:inline type="application/ld+json">{JSON.stringify(home)}</script>
+
+    <!-- ✅ Schema terpisah -->
+    <OrganizationSchema />
+    <HomeSchemas />
   </Fragment>
 
   <!-- ✅ Konten halaman -->
