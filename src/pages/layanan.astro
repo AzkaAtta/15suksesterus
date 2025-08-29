@@ -1,86 +1,44 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import SiteMeta from '@components/SiteMeta.astro'
-
-// Data layanan (bisa nanti diambil dari CMS/json, untuk sekarang hardcode dulu)
-const layanan = [
-  {
-    name: "Komentar Instagram",
-    url: "https://auradigital.id/komentar-instagram",
-    description: "Jasa komentar Instagram aman & real engagement untuk meningkatkan interaksi akun Anda.",
-    image: "/layanan.webp",
-  },
-  {
-    name: "Followers Instagram",
-    url: "https://auradigital.id/followers-instagram",
-    description: "Dapatkan followers Instagram dengan cepat, aman, dan berkualitas.",
-    image: "/layanan.png",
-  },
-  {
-    name: "Views TikTok",
-    url: "https://auradigital.id/views-tiktok",
-    description: "Tingkatkan views TikTok agar video lebih mudah masuk FYP.",
-    image: "/layanan.webp",
-  },
-  {
-    name: "Trending Topik",
-    url: "https://auradigital.id/trending-topik",
-    description: "Jasa trending topik Twitter/X dengan cara aman & etis.",
-    image: "/layanan.png",
-  },
-]
+import LayananSchema from '@components/LayananSchema.astro'
 ---
 
-<DefaultLayout title="Layanan Kami">
+<DefaultLayout title="Layanan Aura Digital">
   <Fragment slot="head">
     <SiteMeta
-      title="Layanan AuraDigital | Jasa Sosial Media Aman, Murah & Terpercaya"
-      description="Temukan berbagai layanan sosial media marketing dari AuraDigital. Mulai dari followers Instagram, komentar, views TikTok, hingga jasa trending topik."
+      title="Layanan Jasa Sosial Media Murah & Terpercaya | Aura Digital"
+      description="Temukan berbagai layanan sosial media murah, aman, dan terpercaya: komentar Instagram, followers Instagram, views TikTok, trending topik, hingga jasa report."
       url="https://auradigital.id/layanan"
-      image="/layanan.webp"
+      image="/layanan.png"
       siteName="Aura Digital"
-      type="website"
+      ogType="website"
+      twitterCard="summary_large_image"
       keywords={[
-        "jasa komentar Instagram",
-        "jasa followers Instagram",
-        "jasa views TikTok",
-        "jasa trending topik",
         "jasa sosial media murah",
-        "smm panel terpercaya"
+        "jasa komentar instagram",
+        "beli followers instagram",
+        "jasa views tiktok",
+        "jasa trending topik",
+        "jasa report akun"
       ]}
     />
-
-    <!-- ✅ Schema untuk daftar layanan -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "name": "Daftar Layanan Aura Digital",
-        "description": "Semua layanan sosial media marketing yang tersedia di AuraDigital.",
-        "url": "https://auradigital.id/layanan",
-        "numberOfItems": layanan.length,
-        "itemListElement": layanan.map((item, index) => ({
-          "@type": "ListItem",
-          "position": index + 1,
-          "url": item.url,
-          "name": item.name,
-          "description": item.description,
-          "image": `https://auradigital.id${item.image}`
-        }))
-      }, null, 2)}
-    </script>
+    <LayananSchema
+      name="Layanan Sosial Media"
+      description="Daftar lengkap layanan sosial media dari Aura Digital: komentar Instagram, followers, views TikTok, trending topik, dan lain-lain."
+      image={["https://auradigital.id/layanan.webp", "https://auradigital.id/layanan.png"]}
+      url="https://auradigital.id/layanan"
+    />
   </Fragment>
 
-  <section class="container mx-auto my-16 px-6">
-    <h1 class="text-3xl font-bold mb-8 text-center">Layanan Kami</h1>
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {layanan.map(service => (
-        <a href={service.url} class="block border rounded-xl p-6 hover:shadow-lg transition">
-          <img src={service.image} alt={service.name} class="mb-4 rounded-lg" loading="lazy" />
-          <h2 class="text-xl font-semibold mb-2">{service.name}</h2>
-          <p class="text-gray-600">{service.description}</p>
-        </a>
-      ))}
-    </div>
+  <section>
+    <h1>Layanan Kami</h1>
+    <ul>
+      <li><a href="/komentar-instagram/">Komentar Instagram</a></li>
+      <li><a href="/followers-instagram/">Followers Instagram</a></li>
+      <li><a href="/views-tiktok/">Views TikTok</a></li>
+      <li><a href="/trending-topik/">Trending Topik</a></li>
+      <li><a href="/jasa-report/">Jasa Report</a></li>
+    </ul>
   </section>
 </DefaultLayout>
