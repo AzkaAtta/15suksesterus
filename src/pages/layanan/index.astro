@@ -263,23 +263,24 @@ const sections = [
   // Tambah platform lain (YouTube, X, dll.) dengan format yang sama jika perlu
 ]
 ---
-<DefaultLayout title="Layanan">
-<SiteMetaLayanan
-  title="Jasa Kelola Instagram & TikTok, Komentar Terarah, dan Discord — Aura Digital"
-  description="Layanan fokus organik: kelola Instagram & TikTok, produksi konten, optimasi profil, komentar TikTok yang terarah, desain visual, serta manajemen komunitas Discord."
-  url="https://auradigital.id/layanan/"
-  image="/og-layanan.png"
-  siteName="Aura Digital"
-  ogType="website"
-  keywords={[
-    'jasa sosial media murah',
-    'jasa komentar instagram',
-    'beli followers instagram',
-    'jasa views tiktok',
-    'jasa trending topik',
-    'jasa report akun'
-  ]}
-/>
+      <DefaultLayout title="Layanan">
+  <Fragment slot="head">
+    <SiteMetaLayanan
+      title="Jasa Kelola Instagram & TikTok, Komentar Terarah, dan Discord — Aura Digital"
+      description="Layanan fokus organik: kelola Instagram & TikTok, produksi konten, optimasi profil, komentar TikTok yang terarah, desain visual, serta manajemen komunitas Discord."
+      url="https://auradigital.id/layanan/"
+      image="/og-layanan.png"
+      siteName="Aura Digital"
+      ogType="website"
+      keywords={[
+        'jasa sosial media murah',
+        'jasa komentar instagram',
+        'beli followers instagram',
+        'jasa views tiktok',
+        'jasa trending topik',
+        'jasa report akun'
+      ]}
+    />
 
     <!-- JSON-LD untuk halaman layanan -->
     <LayananSchemas
