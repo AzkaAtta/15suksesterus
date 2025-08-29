@@ -1,55 +1,67 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
-import Hero from '@components/Hero.astro'
-import Feature from '@components/Feature.astro'
-import Counter from '@components/Counter.astro'
-import ContentMedia from '@components/ContentMedia.astro'
-import ExternalLink from '@components/ExternalLink.astro'
 import SiteMeta from '@components/SiteMeta.astro'
-import OrganizationSchema from '@components/OrganizationSchema.astro'
-import { Accordion, AccordionItem, Avatar, AvatarGroup } from 'accessible-astro-components'
-import { Icon } from 'astro-icon/components'
-import HomeSchemas from '@components/HomeSchemas.astro'
+
+// JSON-LD langsung di frontmatter
+const org = {
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "@id":"https://auradigital.id/#organization",
+  "name":"Aura Digital",
+  "url":"https://auradigital.id/",
+  "logo":{"@type":"ImageObject","url":"https://auradigital.id/logo-auradigital.png"},
+  "sameAs":[
+    "https://t.me/auradigitalID",
+    "https://x.com/auradigitalID",
+    "https://www.tiktok.com/@indobuzz",
+    "https://www.instagram.com/jasa.liketerpercaya.id"
+  ],
+  "contactPoint":[{
+    "@type":"ContactPoint",
+    "telephone":"+62-895-4003-61414",
+    "contactType":"customer service",
+    "availableLanguage":["Indonesian","English"]
+  }]
+}
+
+const home = {
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebSite","@id":"https://auradigital.id/#website",
+      "url":"https://auradigital.id/","name":"Aura Digital",
+      "publisher":{"@id":"https://auradigital.id/#organization"}
+    },
+    {
+      "@type":"WebPage","@id":"https://auradigital.id/#webpage",
+      "url":"https://auradigital.id/","name":"Jasa Sosial Media – Aman, Murah & Terpercaya | Aura Digital",
+      "description":"Layanan buzzer & manajemen sosial media: followers, likes, views, komentar, trending topik. Aman, cepat, transparan.",
+      "isPartOf":{"@id":"https://auradigital.id/#website"},
+      "primaryImageOfPage":{"@type":"ImageObject","url":"https://auradigital.id/og-home.png"}
+    },
+    {
+      "@type":"BreadcrumbList","@id":"https://auradigital.id/#breadcrumb",
+      "itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://auradigital.id/"}]
+    }
+  ]
+}
 ---
 
-    <Fragment slot="head">
-  <SiteMeta
-    title="Jasa Sosial Media Murah | Cara Meningkatkan Followers & Engagement | Bagaimana Mendapatkan Interaksi Otomatis?"
-    description="AuraDigital menyediakan jasa sosial media murah dan aman untuk Instagram, TikTok, YouTube, dan lainnya."
-    url="https://auradigital.id/"
-    image="/og-home.png"
-    siteName="Aura Digital"
-    ogType="website"           <!-- pakai ogType, bukan type -->
-    keywords={[
-      "jasa sosial media murah",
-      "smm panel terpercaya",
-      "cara meningkatkan followers",
-      "tips optimasi engagement",
-      "bagaimana menambah like otomatis",
-      "kenapa sosial media penting"
-    ]}
-  />
+<DefaultLayout title="Home">
+  <Fragment slot="head">
+    <SiteMeta
+      title="Jasa Sosial Media Murah | Cara Meningkatkan Followers & Engagement | Bagaimana Mendapatkan Interaksi Otomatis?"
+      description="AuraDigital menyediakan jasa sosial media murah dan aman untuk Instagram, TikTok, YouTube, dan lainnya."
+      url="https://auradigital.id/"
+      image="/og-home.png"
+      siteName="Aura Digital"
+      type="website"
+    />
 
-  <!-- JSON-LD: Organization harus ada dulu -->
-  <OrganizationSchema
-    name="Aura Digital"
-    url="https://auradigital.id"
-    logo="https://auradigital.id/logo-auradigital.png"
-  />
-
-  <!-- JSON-LD: WebSite/WebPage/FAQ -->
-  <HomeSchemas
-    url="https://auradigital.id"
-    siteName="Aura Digital"
-    pageName="Jasa Sosial Media – Aman, Murah & Terpercaya | Aura Digital"
-    description="Layanan buzzer & manajemen sosial media: followers, likes, views, komentar, trending topik. Aman, cepat, transparan."
-    ogImage="https://auradigital.id/og-home.png"
-    faqItems={[
-      { q: "Bagaimana cara memesan layanan?", a: "Pilih layanan, lakukan pembayaran, dan tim kami segera memproses pesanan Anda." },
-      { q: "Metode pembayaran apa saja yang tersedia?", a: "Kami menerima e-wallet, transfer bank, serta kartu kredit Visa & Mastercard." }
-    ]}
-  />
-</Fragment>
+    <!-- JSON-LD langsung inline -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(org)}></script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(home)}></script>
+  </Fragment>
 
   <!-- ✅ Konten halaman -->
   <Hero />
