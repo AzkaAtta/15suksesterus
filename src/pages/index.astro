@@ -4,7 +4,11 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 
 <DefaultLayout title="Home">
   <Fragment slot="head">
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+  <!-- TEST MARKER: harus terlihat di View Source -->
+  <meta name="schema-test" content="home-ldjson" />
+
+  <script is:inline type="application/ld+json">
+    {JSON.stringify({
       "@context":"https://schema.org",
       "@type":"Organization",
       "@id":"https://auradigital.id/#organization",
@@ -18,9 +22,11 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
         "https://www.instagram.com/jasa.liketerpercaya.id"
       ],
       "contactPoint":[{"@type":"ContactPoint","telephone":"+62-895-4003-61414","contactType":"customer service","availableLanguage":["Indonesian","English"]}]
-    })} />
+    })}
+  </script>
 
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+  <script is:inline type="application/ld+json">
+    {JSON.stringify({
       "@context":"https://schema.org",
       "@graph":[
         {
@@ -41,8 +47,9 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
           "itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://auradigital.id/"}]
         }
       ]
-    })} />
-  </Fragment>
+    })}
+  </script>
+</Fragment>
 
   <!-- ✅ Konten halaman -->
   <Hero />
