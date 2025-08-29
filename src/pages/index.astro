@@ -1,73 +1,46 @@
 ---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import SiteMeta from '@components/SiteMeta.astro'
+
 const org = {
   "@context":"https://schema.org",
   "@type":"Organization",
   "@id":"https://auradigital.id/#organization",
   "name":"Aura Digital",
   "url":"https://auradigital.id/",
-  "logo":{"@type":"ImageObject","url":"https://auradigital.id/logo-auradigital.png"},
-  "sameAs":[
-    "https://t.me/auradigitalID",
-    "https://x.com/auradigitalID",
-    "https://www.tiktok.com/@indobuzz",
-    "https://www.instagram.com/jasa.liketerpercaya.id"
-  ],
-  "contactPoint":[{"@type":"ContactPoint","telephone":"+62-895-4003-61414","contactType":"customer service","availableLanguage":["Indonesian","English"]}]
+  "logo":{"@type":"ImageObject","url":"https://auradigital.id/logo-auradigital.png"}
 }
 
 const home = {
   "@context":"https://schema.org",
   "@graph":[
     {
-      "@type":"WebSite","@id":"https://auradigital.id/#website",
-      "url":"https://auradigital.id/","name":"Aura Digital",
-      "publisher":{"@id":"https://auradigital.id/#organization"}
-    },
-    {
-      "@type":"WebPage","@id":"https://auradigital.id/#webpage",
+      "@type":"WebSite",
+      "@id":"https://auradigital.id/#website",
       "url":"https://auradigital.id/",
-      "name":"Jasa Sosial Media – Aman, Murah & Terpercaya | Aura Digital",
-      "description":"Layanan buzzer & manajemen sosial media: followers, likes, views, komentar, trending topik. Aman, cepat, transparan.",
-      "isPartOf":{"@id":"https://auradigital.id/#website"},
-      "primaryImageOfPage":{"@type":"ImageObject","url":"https://auradigital.id/og-home.png"}
-    },
-    {
-      "@type":"BreadcrumbList","@id":"https://auradigital.id/#breadcrumb",
-      "itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://auradigital.id/"}]
+      "name":"Aura Digital",
+      "publisher":{"@id":"https://auradigital.id/#organization"}
     }
   ]
 }
 ---
-<DefaultLayout title="Home">
+  <DefaultLayout title="Home">
   <Fragment slot="head">
-  <SiteMeta
-    title="Jasa Sosial Media Murah | Cara Meningkatkan Followers & Engagement | Bagaimana Mendapatkan Interaksi Otomatis?"
-    description="AuraDigital menyediakan jasa sosial media murah dan aman untuk Instagram, TikTok, YouTube, dan lainnya."
-    url="https://auradigital.id/"
-    image="/og-home.png"
-    siteName="Aura Digital"
-    type="website"
-    keywords={[
-      "jasa sosial media murah",
-      "smm panel terpercaya",
-      "cara meningkatkan followers",
-      "tips optimasi engagement",
-      "bagaimana menambah like otomatis",
-      "kenapa sosial media penting"
-    ]}
-  />
+    <SiteMeta
+      title="Jasa Sosial Media Murah | Cara Meningkatkan Followers & Engagement"
+      description="AuraDigital menyediakan jasa sosial media murah dan aman untuk Instagram, TikTok, YouTube, dan lainnya."
+      url="https://auradigital.id/"
+      image="/og-home.png"
+      siteName="Aura Digital"
+      ogType="website"
+    />
 
-  <!-- marker buat cek di View Source -->
-  <meta name="schema-test" content="home-ldjson" />
+    <meta name="schema-test" content="home-ldjson" />
 
-  <script is:inline type="application/ld+json">
-    {JSON.stringify(org)}
-  </script>
+    <script is:inline type="application/ld+json">{JSON.stringify(org)}</script>
+    <script is:inline type="application/ld+json">{JSON.stringify(home)}</script>
+  </Fragment>
 
-  <script is:inline type="application/ld+json">
-    {JSON.stringify(home)}
-  </script>
-</Fragment>
 
   <!-- ✅ Konten halaman -->
   <Hero />
