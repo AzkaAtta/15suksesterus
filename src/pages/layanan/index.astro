@@ -1,8 +1,7 @@
 ---
-// src/pages/layanan/index.astro
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import SiteMeta from '@components/SiteMeta.astro'
-import LayananSchemas from '@components/LayananSchemas.astro'  // <— plural
+import LayananSchemas from '@components/LayananSchemas.astro' // <-- cocok dgn nama file (pakai "s")
 ---
 
 <DefaultLayout title="Layanan Aura Digital">
@@ -24,23 +23,41 @@ import LayananSchemas from '@components/LayananSchemas.astro'  // <— plural
       ]}
     />
 
-    <!-- Sesuaikan dengan props yang didefinisikan di LayananSchemas.astro -->
     <LayananSchemas
       pageUrl="https://auradigital.id/layanan/"
-      pageTitle="Layanan Sosial Media"
+      pageTitle="Layanan Jasa Sosial Media Murah & Terpercaya | Aura Digital"
       description="Daftar lengkap layanan sosial media dari Aura Digital."
       imageWebp="/layanan.webp"
       imagePng="/layanan.png"
       services={[
-        { name: 'Komentar Instagram', url: 'https://auradigital.id/komentar-instagram/' },
-        { name: 'Followers Instagram', url: 'https://auradigital.id/followers-instagram/' },
-        { name: 'Views TikTok', url: 'https://auradigital.id/views-tiktok/' },
-        { name: 'Trending Topik', url: 'https://auradigital.id/trending-topik/' },
-        { name: 'Jasa Report', url: 'https://auradigital.id/jasa-report/' },
+        {
+          name: 'Komentar Instagram',
+          url: 'https://auradigital.id/komentar-instagram/',
+          description: 'Tambah komentar organik & relevan untuk posting IG.',
+          serviceType: 'Social Media Engagement',
+          areaServed: 'ID',
+          offers: [{ price: '25000', priceCurrency: 'IDR', unitText: 'per 100' }]
+        },
+        {
+          name: 'Followers Instagram',
+          url: 'https://auradigital.id/followers-instagram/',
+          description: 'Penambahan followers aman dan bertahap.',
+          serviceType: 'Audience Growth',
+          areaServed: 'ID',
+          offers: [{ price: '30000', priceCurrency: 'IDR', unitText: 'per 100' }]
+        },
+        {
+          name: 'Views TikTok',
+          url: 'https://auradigital.id/views-tiktok/',
+          description: 'Naikkan views konten TikTok secara cepat.',
+          serviceType: 'Video Views',
+          areaServed: 'ID',
+          offers: [{ price: '15000', priceCurrency: 'IDR', unitText: 'per 1000' }]
+        }
       ]}
       faqItems={[
-        { q: 'Bagaimana cara memesan?', a: 'Chat admin, pilih layanan, lakukan pembayaran.' },
-        { q: 'Pembayaran apa saja?', a: 'E-wallet, transfer bank, kartu kredit.' }
+        { q: 'Bagaimana proses pemesanan?', a: 'Pilih layanan, bayar, lalu tim memproses otomatis.' },
+        { q: 'Apakah aman?', a: 'Kami menggunakan metode yang aman & bertahap.' }
       ]}
     />
   </Fragment>
@@ -51,6 +68,7 @@ import LayananSchemas from '@components/LayananSchemas.astro'  // <— plural
       Pilih layanan yang kamu butuhkan: komentar IG, followers, views TikTok, trending
       topik, dan lainnya. Hubungi admin untuk rekomendasi paket terbaik.
     </p>
+
     <ul class="list-disc pl-5 space-y-2">
       <li><a href="/komentar-instagram/">Komentar Instagram</a></li>
       <li><a href="/followers-instagram/">Followers Instagram</a></li>
