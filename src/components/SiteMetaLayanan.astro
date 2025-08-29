@@ -1,0 +1,132 @@
+---
+/**
+ * SiteMetaLayanan.astro — Meta tag untuk halaman /layanan
+ * Pakai di slot <head> halaman Layanan.
+ */
+
+interface HrefLang {
+  href: string;       // absolute URL
+  hreflang: string;   // e.g. "id", "en", "x-default"
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string[] | string;
+  author?: string;
+
+  url?: string;                 // absolute URL halaman (canonical)
+  siteName?: string;            // nama situs/brand
+  canonical?: string;           // override canonical (optional)
+  noindex?: boolean;
+
+  image?: string;               // og/twitter image (absolute/relative)
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  ogType?: 'website' | 'article' | 'product' | 'profile';
+  twitterCard?: 'summary_large_image' | 'summary';
+  twitterSite?: string;
+  twitterCreator?: string;
+
+  locale?: string;              // e.g. "id_ID"
+  alternateLocales?: string[];  // e.g. ["en_US"]
+  hrefLangs?: HrefLang[];
+
+  themeColor?: string;
+}
+
+const {
+  // ==== DEFAULT KHUSUS LAYANAN ====
+  title = 'Daftar Layanan Sosial Media Murah & Terpercaya | Aura Digital',
+  description = 'Daftar lengkap layanan sosial media: komentar, like, followers, views, livestreaming, share, vote, dan lainnya untuk TikTok, Instagram, Twitter/X, YouTube, Discord, Telegram, dll.',
+  keywords = [
+    'jasa sosial media murah',
+    'jasa komentar instagram',
+    'beli followers instagram',
+    'jasa views tiktok',
+    'jasa trending topik',
+    'jasa report akun',
+    'layanan sosial media'
+  ],
+  author = 'Aura Digital',
+
+  url = 'https://auradigital.id/layanan/',
+  siteName = 'Aura Digital',
+  canonical,
+
+  noindex = false,
+
+  image = '/layanan.png',
+  imageAlt = 'Halaman Layanan Aura Digital',
+  imageWidth = 1200,
+  imageHeight = 630,
+  ogType = 'website',
+  twitterCard = 'summary_large_image',
+  twitterSite = '@auradigitalid',
+  twitterCreator = '@auradigitalid',
+
+  locale = 'id_ID',
+  alternateLocales = [],
+  hrefLangs = [],
+
+  themeColor = '#ffffff',
+}: Props = Astro.props
+
+// Helpers
+const siteOrigin = Astro.site?.href?.replace(/\/$/, '') || '';
+const ensureAbs = (src: string) =>
+  src.startsWith('http://') || src.startsWith('https://')
+    ? src
+    : `${siteOrigin}${src.startsWith('/') ? '' : '/'}${src}`;
+
+const pageUrl = (canonical || url).replace(/\/?$/, '/'); // pastikan trailing slash
+const ogImage = ensureAbs(image);
+const kw = Array.isArray(keywords) ? keywords.join(', ') : keywords;
+---
+
+<!-- Primary -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{kw && <meta name="keywords" content={kw} />}
+<meta name="author" content={author} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+<link rel="canonical" href={pageUrl} />
+
+<!-- Hreflang (opsional) -->
+{hrefLangs.map((a) => (
+  <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+))}
+{hrefLangs.length === 0 && (
+  <link rel="alternate" hreflang="x-default" href={pageUrl} />
+)}
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={pageUrl} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={locale} />
+{alternateLocales.map((l) => (
+  <meta property="og:locale:alternate" content={l} />
+))}
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta property="og:image:width" content={String(imageWidth)} />
+<meta property="og:image:height" content={String(imageHeight)} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:site" content={twitterSite} />
+<meta name="twitter:creator" content={twitterCreator} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- PWA / Theming (opsional) -->
+<meta name="theme-color" content={themeColor} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
