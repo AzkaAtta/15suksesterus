@@ -1,6 +1,12 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import SiteMeta from '@components/SiteMeta.astro'
+import Hero from '@components/Hero.astro'
+import Feature from '@components/Feature.astro'
+import Counter from '@components/Counter.astro'
+import ContentMedia from '@components/ContentMedia.astro'
+import { Accordion, AccordionItem } from 'accessible-astro-components'
+import { Icon } from 'astro-icon/components'
 
 const org = {
   "@context":"https://schema.org",
@@ -24,7 +30,8 @@ const home = {
   ]
 }
 ---
-  <DefaultLayout title="Home">
+
+<DefaultLayout title="Home">
   <Fragment slot="head">
     <SiteMeta
       title="Jasa Sosial Media Murah | Cara Meningkatkan Followers & Engagement"
@@ -34,13 +41,10 @@ const home = {
       siteName="Aura Digital"
       ogType="website"
     />
-
     <meta name="schema-test" content="home-ldjson" />
-
     <script is:inline type="application/ld+json">{JSON.stringify(org)}</script>
     <script is:inline type="application/ld+json">{JSON.stringify(home)}</script>
   </Fragment>
-
 
   <!-- ✅ Konten halaman -->
   <Hero />
