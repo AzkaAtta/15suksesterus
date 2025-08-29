@@ -5,35 +5,46 @@ import LayananSchema from '@components/LayananSchema.astro'
 ---
 
 <DefaultLayout title="Layanan Aura Digital">
+  <!-- Semua meta & schema spesifik halaman masuk ke slot head -->
   <Fragment slot="head">
     <SiteMeta
       title="Layanan Jasa Sosial Media Murah & Terpercaya | Aura Digital"
-      description="Temukan berbagai layanan sosial media murah, aman, dan terpercaya: komentar Instagram, followers Instagram, views TikTok, trending topik, hingga jasa report."
-      url="https://auradigital.id/layanan"
+      description="Temukan berbagai layanan sosial media: komentar Instagram, followers, views TikTok, trending topik, dan lainnya."
+      url="https://auradigital.id/layanan/"
       image="/layanan.png"
       siteName="Aura Digital"
       ogType="website"
-      twitterCard="summary_large_image"
       keywords={[
-        "jasa sosial media murah",
-        "jasa komentar instagram",
-        "beli followers instagram",
-        "jasa views tiktok",
-        "jasa trending topik",
-        "jasa report akun"
+        'jasa sosial media murah',
+        'jasa komentar instagram',
+        'beli followers instagram',
+        'jasa views tiktok',
+        'jasa trending topik',
+        'jasa report akun'
       ]}
     />
+
     <LayananSchema
       name="Layanan Sosial Media"
-      description="Daftar lengkap layanan sosial media dari Aura Digital: komentar Instagram, followers, views TikTok, trending topik, dan lain-lain."
-      image={["https://auradigital.id/layanan.webp", "https://auradigital.id/layanan.png"]}
-      url="https://auradigital.id/layanan"
+      description="Daftar lengkap layanan sosial media dari Aura Digital."
+      url="https://auradigital.id/layanan/"
+      image={[
+        'https://auradigital.id/layanan.webp',
+        'https://auradigital.id/layanan.png'
+      ]}
     />
   </Fragment>
 
-  <section>
-    <h1>Layanan Kami</h1>
-    <ul>
+  <!-- Konten halaman -->
+  <section class="container my-16">
+    <h1 class="text-3xl font-bold mb-4">Layanan Aura Digital</h1>
+    <p class="mb-6">
+      Pilih layanan yang kamu butuhkan: komentar IG, followers, views TikTok, trending
+      topik, dan lainnya. Hubungi admin untuk rekomendasi paket terbaik.
+    </p>
+
+    <!-- contoh daftar layanan -->
+    <ul class="list-disc pl-5 space-y-2">
       <li><a href="/komentar-instagram/">Komentar Instagram</a></li>
       <li><a href="/followers-instagram/">Followers Instagram</a></li>
       <li><a href="/views-tiktok/">Views TikTok</a></li>
