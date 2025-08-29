@@ -1,14 +1,16 @@
+// astro.config.mjs
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import compress from 'astro-compress'
 import icon from 'astro-icon'
 import tailwindcss from '@tailwindcss/vite'
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'node:url' // pakai 'node:url' lebih eksplisit
 
 export default defineConfig({
-  compressHTML: true,
-  site: 'https://auradigital.id',     
-  trailingSlash: 'ignore',           
+  // HAPUS: compressHTML (biarkan astro-compress yang kerja)
+  site: 'https://auradigital.id',
+  output: 'static',
+  trailingSlash: 'ignore',
   integrations: [mdx(), icon(), compress()],
   vite: {
     css: {
@@ -30,6 +32,13 @@ export default defineConfig({
         '@post-images': fileURLToPath(new URL('./public/posts', import.meta.url)),
         '@project-images': fileURLToPath(new URL('./public/projects', import.meta.url)),
       },
+    },
+    // cegah masalah bundling di CF
+    ssr: {
+      noExternal: [
+        'accessible-astro-components',
+        'astro-icon',
+      ],
     },
   },
 })
