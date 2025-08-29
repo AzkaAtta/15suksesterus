@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 export default defineConfig({
   compressHTML: true,
   site: 'https://auradigital.id',     
-  trailingSlash: 'ignore',           
+  trailingSlash: 'always',           
   integrations: [mdx(), icon(), compress()],
   vite: {
     css: {
