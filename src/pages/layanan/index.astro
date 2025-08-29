@@ -2,6 +2,36 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import SiteMeta from '@components/SiteMeta.astro'
 import LayananSchemas from '@components/LayananSchemas.astro'
+import { Icon } from 'astro-icon/components'
+
+// ====== DATA LAYANAN PER PLATFORM ======
+const sections = [
+  {
+    id: 'tiktok',
+    title: 'TikTok',
+    lead: 'Optimasi pertumbuhan & engagement akun TikTok.',
+    icon: 'lucide:play',
+    items: [
+      { name: 'Views TikTok', href: '/views-tiktok/', icon: 'lucide:eye', desc: 'Naikkan tayangan video secara aman & bertahap.' },
+      { name: 'Like TikTok', href: '/likes-tiktok/', icon: 'lucide:heart', desc: 'Dorong interaksi dan sinyal algoritma.' },
+      { name: 'Komentar TikTok', href: '/komentar-tiktok/', icon: 'lucide:message-circle', desc: 'Komentar relevan & natural untuk social proof.' },
+      { name: 'Followers TikTok', href: '/followers-tiktok/', icon: 'lucide:users', desc: 'Pertumbuhan followers bertahap & aman.' },
+    ],
+  },
+  {
+    id: 'instagram',
+    title: 'Instagram',
+    lead: 'Paket lengkap untuk IG: growth & engagement.',
+    icon: 'lucide:camera',
+    items: [
+      { name: 'Followers Instagram', href: '/followers-instagram/', icon: 'lucide:users', desc: 'Followers real/tertarget, bertahap & aman.' },
+      { name: 'Likes Instagram', href: '/likes-instagram/', icon: 'lucide:heart', desc: 'Tingkatkan like untuk dorong jangkauan.' },
+      { name: 'Komentar Instagram', href: '/komentar-instagram/', icon: 'lucide:message-circle', desc: 'Komentar organik & relevan di posting IG.' },
+      { name: 'Views Reels', href: '/views-reels/', icon: 'lucide:video', desc: 'Tingkatkan views Reels untuk exposure lebih besar.' },
+    ],
+  },
+  // Tambah platform lain (YouTube, X, dll.) dengan format yang sama jika perlu
+]
 ---
 
 <DefaultLayout title="Layanan Aura Digital">
@@ -14,15 +44,16 @@ import LayananSchemas from '@components/LayananSchemas.astro'
       siteName="Aura Digital"
       ogType="website"
       keywords={[
-        "jasa sosial media murah",
-        "jasa komentar instagram",
-        "beli followers instagram",
-        "jasa views tiktok",
-        "jasa trending topik",
-        "jasa report akun"
+        'jasa sosial media murah',
+        'jasa komentar instagram',
+        'beli followers instagram',
+        'jasa views tiktok',
+        'jasa trending topik',
+        'jasa report akun'
       ]}
     />
 
+    <!-- JSON-LD untuk halaman layanan -->
     <LayananSchemas
       pageUrl="https://auradigital.id/layanan/"
       pageTitle="Layanan Jasa Sosial Media Murah & Terpercaya | Aura Digital"
@@ -31,50 +62,83 @@ import LayananSchemas from '@components/LayananSchemas.astro'
       imagePng="/layanan.png"
       services={[
         {
-          name: "Komentar Instagram",
-          url: "https://auradigital.id/komentar-instagram/",
-          description: "Tambah komentar organik & relevan untuk posting IG.",
-          serviceType: "Social Media Engagement",
-          areaServed: "ID",
-          offers: [{ price: "25000", priceCurrency: "IDR", unitText: "per 100" }]
+          name: 'Komentar Instagram',
+          url: 'https://auradigital.id/komentar-instagram/',
+          description: 'Tambah komentar organik & relevan untuk posting IG.',
+          serviceType: 'Social Media Engagement',
+          areaServed: 'ID',
+          offers: [{ price: '25000', priceCurrency: 'IDR', unitText: 'per 100' }]
         },
         {
-          name: "Followers Instagram",
-          url: "https://auradigital.id/followers-instagram/",
-          description: "Penambahan followers aman dan bertahap.",
-          serviceType: "Audience Growth",
-          areaServed: "ID",
-          offers: [{ price: "30000", priceCurrency: "IDR", unitText: "per 100" }]
+          name: 'Followers Instagram',
+          url: 'https://auradigital.id/followers-instagram/',
+          description: 'Penambahan followers aman dan bertahap.',
+          serviceType: 'Audience Growth',
+          areaServed: 'ID',
+          offers: [{ price: '30000', priceCurrency: 'IDR', unitText: 'per 100' }]
         },
         {
-          name: "Views TikTok",
-          url: "https://auradigital.id/views-tiktok/",
-          description: "Naikkan views konten TikTok secara cepat.",
-          serviceType: "Video Views",
-          areaServed: "ID",
-          offers: [{ price: "15000", priceCurrency: "IDR", unitText: "per 1000" }]
+          name: 'Views TikTok',
+          url: 'https://auradigital.id/views-tiktok/',
+          description: 'Naikkan views konten TikTok secara cepat.',
+          serviceType: 'Video Views',
+          areaServed: 'ID',
+          offers: [{ price: '15000', priceCurrency: 'IDR', unitText: 'per 1000' }]
         }
       ]}
       faqItems={[
-        { q: "Bagaimana proses pemesanan?", a: "Pilih layanan, bayar, lalu tim memproses otomatis." },
-        { q: "Apakah aman?", a: "Kami menggunakan metode yang aman & bertahap." }
+        { q: 'Bagaimana proses pemesanan?', a: 'Pilih layanan, bayar, lalu tim memproses otomatis.' },
+        { q: 'Apakah aman?', a: 'Kami menggunakan metode yang aman & bertahap.' }
       ]}
     />
   </Fragment>
 
-  <section class="container my-16">
-    <h1 class="text-3xl font-bold mb-4">Layanan Aura Digital</h1>
-    <p class="mb-6">
-      Pilih layanan yang kamu butuhkan: komentar IG, followers, views TikTok, trending
-      topik, dan lainnya. Hubungi admin untuk rekomendasi paket terbaik.
+  <!-- ====== HERO SECTION ====== -->
+  <section class="container my-12">
+    <h1 class="text-5xl md:text-6xl font-bold">Layanan Aura Digital</h1>
+    <p class="text-xl opacity-80 mt-4 max-w-3xl">
+      Pilih layanan sesuai kebutuhan: followers, likes, komentar, views hingga campaign trending.
+      Semua dikerjakan aman & bertahap oleh tim berpengalaman.
     </p>
 
-    <ul class="list-disc pl-5 space-y-2">
-      <li><a href="/komentar-instagram/">Komentar Instagram</a></li>
-      <li><a href="/followers-instagram/">Followers Instagram</a></li>
-      <li><a href="/views-tiktok/">Views TikTok</a></li>
-      <li><a href="/trending-topik/">Trending Topik</a></li>
-      <li><a href="/jasa-report/">Jasa Report</a></li>
-    </ul>
+    <!-- Gambar di bawah H1 -->
+    <figure class="mt-8 overflow-hidden rounded-2xl border">
+      <picture>
+        <source srcset="/layanan.webp" type="image/webp" />
+        <img src="/layanan.png" alt="Katalog layanan Aura Digital" loading="eager" class="w-full h-auto" />
+      </picture>
+    </figure>
+  </section>
+
+  <!-- ====== LIST PLATFORM + GRID LAYANAN ====== -->
+  <section class="container my-16">
+    {sections.map((sec) => (
+      <div class="mb-16" id={sec.id}>
+        <h2 class="text-3xl md:text-4xl font-semibold flex items-center gap-3">
+          <Icon name={sec.icon} size="28" />
+          {sec.title}
+        </h2>
+        <p class="mt-2 mb-6 text-lg opacity-80">{sec.lead}</p>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {sec.items.map((item) => (
+            <article class="p-6 rounded-2xl border shadow-sm bg-white/60 dark:bg-neutral-900/60 hover:shadow-md transition">
+              <div class="flex items-start gap-4">
+                <Icon name={item.icon} size="32" />
+                <div>
+                  <h3 class="text-xl font-semibold">
+                    <a class="!no-underline hover:underline" href={item.href}>{item.name}</a>
+                  </h3>
+                  <p class="opacity-80">{item.desc}</p>
+                </div>
+              </div>
+              <div class="mt-5">
+                <a href={item.href} class="button">Lihat detail</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
   </section>
 </DefaultLayout>
