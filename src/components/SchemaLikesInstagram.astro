@@ -1,22 +1,22 @@
 ---
 /**
- * SchemaLikeInstagram.astro — Schema untuk halaman /likes-instagram/
+ * SchemaLikesInstagram.astro — Schema lengkap untuk /likes-instagram/
+ * Termasuk: WebPage, BreadcrumbList, Service(+OfferCatalog), FAQPage
  */
-
 interface FAQItem { q: string; a: string }
 
 const {
   pageUrl = 'https://auradigital.id/likes-instagram/',
-  pageTitle = 'Jasa Tambah Likes Instagram — Aman, Murah & Cepat | Aura Digital',
-  description = 'Jasa tambah likes Instagram untuk Feed & Reels. Aman, cepat, murah, dan membantu meningkatkan kredibilitas serta engagement akun Anda.',
+  pageTitle = 'Tambah Likes Instagram Aman & Stabil — Harga Terjangkau',
+  description = 'Jasa tambah likes Instagram untuk Reels & Feed. Likes real, aman, dan bertahap agar engagement naik & peluang masuk Explore lebih besar.',
   imageWebp = '/likes-instagram.webp',
   imagePng = '/likes-instagram.png',
   serviceName = 'Likes Instagram',
-  serviceType = 'Social Media Engagement',
+  serviceType = 'Social Media Likes',
   areaServed = 'ID',
   faqItems = [
-    { q: 'Apakah likes Instagram ini aman?', a: 'Ya, likes ditambahkan secara bertahap agar terlihat natural.' },
-    { q: 'Berapa lama proses penambahan likes?', a: 'Umumnya selesai dalam 1–12 jam setelah pembayaran terkonfirmasi.' }
+    { q: 'Apakah likes aman?', a: 'Ya. Penambahan bertahap & dikontrol agar natural dan minim risiko.' },
+    { q: 'Berapa lama prosesnya?', a: 'Umumnya 1–24 jam setelah pembayaran terverifikasi.' }
   ]
 } = Astro.props;
 
@@ -34,7 +34,7 @@ const graph: any[] = [
       '@type': 'ImageObject',
       url: `${site}${imagePng}`,
       contentUrl: `${site}${imageWebp}`,
-      encodingFormat: ['image/png', 'image/webp'],
+      encodingFormat: ['image/png', 'image/webp']
     }
   },
   {
@@ -54,16 +54,26 @@ const graph: any[] = [
     description,
     serviceType,
     areaServed,
+    image: {
+      '@type': 'ImageObject',
+      url: `${site}${imagePng}`,
+      contentUrl: `${site}${imageWebp}`,
+      encodingFormat: ['image/png', 'image/webp']
+    },
     provider: { '@type': 'Organization', name: 'Aura Digital', url: site },
     offers: [
       {
         '@type': 'Offer',
-        name: 'Likes Instagram',
         price: '2000',
         priceCurrency: 'IDR',
+        unitText: 'per 1 like',
         availability: 'https://schema.org/InStock',
         url: `${pageUrl}?ref=order`
       }
+    ],
+    potentialAction: [
+      { '@type': 'OrderAction', target: `${pageUrl}?ref=order` },
+      { '@type': 'ContactPoint', url: `${site}/kontak/` } // gunakan ContactPoint untuk menghindari warning
     ]
   },
   {
@@ -77,6 +87,7 @@ const graph: any[] = [
         name: '100 Likes Instagram',
         price: '200000',
         priceCurrency: 'IDR',
+        unitText: 'per 100 likes',
         url: `${pageUrl}?ref=order&paket=100`
       },
       {
@@ -84,6 +95,7 @@ const graph: any[] = [
         name: '500 Likes Instagram',
         price: '1000000',
         priceCurrency: 'IDR',
+        unitText: 'per 500 likes',
         url: `${pageUrl}?ref=order&paket=500`
       },
       {
@@ -91,6 +103,7 @@ const graph: any[] = [
         name: '1000 Likes Instagram',
         price: '2000000',
         priceCurrency: 'IDR',
+        unitText: 'per 1000 likes',
         url: `${pageUrl}?ref=order&paket=1000`
       }
     ]
