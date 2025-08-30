@@ -1,42 +1,25 @@
 ---
 /**
- * SchemaViewsTikTok.astro — Schema lengkap untuk /views-tiktok/
- * Termasuk: WebPage, BreadcrumbList, Service(+Offer & OfferCatalog), FAQPage (opsional)
+ * SchemaViewsTikTok.astro — untuk /views-tiktok/
+ * Entities: WebPage, BreadcrumbList, Service(+Offer), OfferCatalog, (opsional) FAQPage
  */
 
-interface Offer { name?: string; price: string; priceCurrency?: string; unitText?: string; url?: string }
-interface FAQItem { q: string; a: string }
+const site = 'https://auradigital.id'
 
 const {
-  site = 'https://auradigital.id',
-  pageUrl = 'https://auradigital.id/views-tiktok/',
-  pageTitle = 'Jasa Tambah Views TikTok Aman, Murah & Cepat — Aura Digital',
+  pageUrl = `${site}/views-tiktok/`,
+  pageTitle = 'Jasa Tambah Views TikTok Aman, Murah, Cepat — Aura Digital',
   description = 'Tambah views TikTok untuk video & live secara aman dan bertahap. Efektif mendorong algoritma agar tayangan meningkat.',
   imageWebp = '/views-tiktok.webp',
-  imagePng = '/views-tiktok.png',
-
+  imagePng  = '/views-tiktok.png',
   serviceName = 'Views TikTok',
   serviceType = 'Video Views',
   areaServed = 'ID',
-
-  // harga dasar per 1 view = 2.000 IDR
-  baseOffer = { price: '2000', priceCurrency: 'IDR', unitText: 'per 1 view', url: 'https://auradigital.id/views-tiktok/?ref=order' } as Offer,
-
-  // contoh paket
-  catalogOffers = [
-    { name: '100 Views TikTok',  price: String(100 * 2000),  priceCurrency: 'IDR', unitText: 'per 100 views',  url: 'https://auradigital.id/views-tiktok/?ref=order&paket=100'  },
-    { name: '500 Views TikTok',  price: String(500 * 2000),  priceCurrency: 'IDR', unitText: 'per 500 views',  url: 'https://auradigital.id/views-tiktok/?ref=order&paket=500'  },
-    { name: '1000 Views TikTok', price: String(1000 * 2000), priceCurrency: 'IDR', unitText: 'per 1000 views', url: 'https://auradigital.id/views-tiktok/?ref=order&paket=1000' },
-  ] as Offer[],
-
   // FAQ opsional
-  faqItems = [
-    { q: 'Apakah penambahan views TikTok aman?', a: 'Ya, proses bertahap & natural untuk meminimalkan risiko penalti.' },
-    { q: 'Berapa lama prosesnya?', a: 'Biasanya mulai masuk 1–24 jam setelah pembayaran terkonfirmasi.' }
-  ] as FAQItem[]
+  faqItems = []
 } = Astro.props
 
-const graph: any[] = [
+const graph = [
   {
     '@type': 'WebPage',
     '@id': `${pageUrl}#webpage`,
@@ -48,7 +31,7 @@ const graph: any[] = [
       '@type': 'ImageObject',
       url: `${site}${imagePng}`,
       contentUrl: `${site}${imageWebp}`,
-      encodingFormat: ['image/png', 'image/webp']
+      encodingFormat: ['image/png', 'image/webp'],
     }
   },
   {
@@ -57,7 +40,7 @@ const graph: any[] = [
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
       { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${site}/layanan/` },
-      { '@type': 'ListItem', position: 3, name: serviceName, item: pageUrl }
+      { '@type': 'ListItem', position: 3, name: 'Views TikTok', item: pageUrl }
     ]
   },
   {
@@ -72,42 +55,40 @@ const graph: any[] = [
       '@type': 'ImageObject',
       url: `${site}${imagePng}`,
       contentUrl: `${site}${imageWebp}`,
-      encodingFormat: ['image/png', 'image/webp']
+      encodingFormat: ['image/png','image/webp']
     },
     provider: { '@type': 'Organization', name: 'Aura Digital', url: site },
-    offers: [
-      {
-        '@type': 'Offer',
-        price: baseOffer.price,
-        priceCurrency: baseOffer.priceCurrency || 'IDR',
-        unitText: baseOffer.unitText || 'per 1 view',
-        availability: 'https://schema.org/InStock',
-        url: baseOffer.url || pageUrl
+    offers: [{
+      '@type': 'Offer',
+      price: '2000',
+      priceCurrency: 'IDR',
+      availability: 'https://schema.org/InStock',
+      url: `${pageUrl}?ref=order`
+    }],
+    // HANYA OrderAction (ContactAction dihapus)
+    potentialAction: [{
+      '@type': 'OrderAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${pageUrl}?ref=order`
       }
-    ],
-    potentialAction: [
-      { '@type': 'OrderAction',   target: `${pageUrl}?ref=order` },
-      { '@type': 'ContactAction', target: `${site}/kontak/` }
-    ]
+    }]
   },
   {
     '@type': 'OfferCatalog',
     '@id': `${pageUrl}#catalog`,
     name: 'Paket Views TikTok',
     url: pageUrl,
-    itemListElement: catalogOffers.map((o) => ({
-      '@type': 'Offer',
-      name: o.name,
-      price: o.price,
-      priceCurrency: o.priceCurrency || 'IDR',
-      ...(o.unitText ? { unitText: o.unitText } : {}),
-      url: o.url || pageUrl
-    }))
+    itemListElement: [
+      { '@type': 'Offer', name: '100 Views TikTok',  price: '200000',  priceCurrency: 'IDR', url: `${pageUrl}?ref=order&paket=100` },
+      { '@type': 'Offer', name: '500 Views TikTok',  price: '1000000', priceCurrency: 'IDR', url: `${pageUrl}?ref=order&paket=500` },
+      { '@type': 'Offer', name: '1000 Views TikTok', price: '2000000', priceCurrency: 'IDR', url: `${pageUrl}?ref=order&paket=1000` },
+    ]
   }
 ]
 
-// Tambahkan FAQ jika ada
-if (faqItems && faqItems.length) {
+// Tambah FAQ jika ada
+if (faqItems.length) {
   graph.push({
     '@type': 'FAQPage',
     '@id': `${pageUrl}#faq`,
