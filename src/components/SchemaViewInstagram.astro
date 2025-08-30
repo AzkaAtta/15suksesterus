@@ -1,6 +1,6 @@
 ---
 /**
- * SchemaViewInstagram.astro - VERSION IMPROVED
+ * SchemaViewInstagram.astro - FIXED VERSION
  */
 
 interface Offer {
@@ -33,6 +33,7 @@ interface Props {
 
 const baseUrl = "https://auradigital.id";
 
+// ✅ GUNAKAN DEFAULT VALUES YANG BENAR
 const {
   pageUrl = `${baseUrl}/views-instagram/`,
   pageTitle = "Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat",
@@ -57,7 +58,7 @@ const {
     },
   ],
   faqItems = [],
-}: Props = Astro.props;
+} = Astro.props;
 
 // Bangun graph
 const graph: any[] = [
