@@ -134,23 +134,46 @@ import { Icon } from 'astro-icon/components'
    <!-- ===== 5) BEST PRACTICES (TIPS GRID) ===== -->
 <section class="container py-16">
   <h2 class="text-3xl md:text-4xl font-semibold">Tips Optimasi agar Views Maksimal</h2>
-  <div class="grid md:grid-cols-2 gap-6 mt-6">
-    <article class="p-6 rounded-2xl border shadow-sm bg-white/70 dark:bg-neutral-900/70">
-      <h3 class="text-xl font-semibold flex items-center gap-2"><Icon name="lucide:square-asterisk" /> Hook 3 Detik Pertama</h3>
-      <p class="mt-2 opacity-80">Pastikan opening video kuat (visual/teks), agar penonton tidak skip di awal.</p>
-    </article>
-    <article class="p-6 rounded-2xl border shadow-sm bg-white/70 dark:bg-neutral-900/70">
-      <h3 class="text-xl font-semibold flex items-center gap-2"><Icon name="lucide:hashtags" /> Hashtag & Caption</h3>
-      <p class="mt-2 opacity-80">Gunakan kombinasi hashtag niche + broad, dan caption singkat padat.</p>
-    </article>
-    <article class="p-6 rounded-2xl border shadow-sm bg-white/70 dark:bg-neutral-900/70">
-      <h3 class="text-xl font-semibold flex items-center gap-2"><Icon name="lucide:wand-2" /> Konsistensi Upload</h3>
-      <p class="mt-2 opacity-80">Posting terjadwal lebih disukai algoritma dan memudahkan evaluasi.</p>
-    </article>
-    <article class="p-6 rounded-2xl border shadow-sm bg-white/70 dark:bg-neutral-900/70">
-      <h3 class="text-xl font-semibold flex items-center gap-2"><Icon name="lucide:layout-template" /> Format & Rasio</h3>
-      <p class="mt-2 opacity-80">Utamakan format vertikal (9:16) untuk Reels, resolusi tajam, dan durasi efisien.</p>
-    </article>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+    {[
+      {
+        badge: 'Hook',
+        title: 'Hook 3 Detik Pertama',
+        desc:
+          'Pastikan opening video kuat (visual/teks) agar penonton tidak skip di awal.'
+      },
+      {
+        badge: '# & Caption',
+        title: 'Hashtag & Caption',
+        desc:
+          'Gunakan kombinasi hashtag niche + broad, dan caption singkat padat.'
+      },
+      {
+        badge: 'Konsisten',
+        title: 'Konsistensi Upload',
+        desc:
+          'Jadwalkan upload teratur; distribusi bertahap sesuai kebutuhan & target akun.'
+      },
+      {
+        badge: 'Format',
+        title: 'Format & Rasio',
+        desc:
+          'Utamakan format vertikal (9:16) untuk Reels—resolusi tajam, durasi efisien.'
+      }
+    ].map((b) => (
+      <article class="p-6 rounded-2xl border shadow-sm bg-white/70 dark:bg-neutral-900/70 hover:shadow-md transition">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-semibold rounded-full
+                        bg-gradient-to-br from-purple-100 to-pink-100 dark:from-neutral-800 dark:to-neutral-900
+                        border border-neutral-200 dark:border-neutral-700">
+            {b.badge}
+          </span>
+          <h3 class="text-xl font-semibold">{b.title}</h3>
+        </div>
+        <p class="mt-2 opacity-80">{b.desc}</p>
+      </article>
+    ))}
   </div>
 </section>
 
