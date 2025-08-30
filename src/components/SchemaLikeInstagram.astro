@@ -1,0 +1,115 @@
+---
+/**
+ * SchemaLikeInstagram.astro — Schema untuk halaman /likes-instagram/
+ */
+
+interface FAQItem { q: string; a: string }
+
+const {
+  pageUrl = 'https://auradigital.id/likes-instagram/',
+  pageTitle = 'Jasa Tambah Likes Instagram — Aman, Murah & Cepat | Aura Digital',
+  description = 'Jasa tambah likes Instagram untuk Feed & Reels. Aman, cepat, murah, dan membantu meningkatkan kredibilitas serta engagement akun Anda.',
+  imageWebp = '/likes-instagram.webp',
+  imagePng = '/likes-instagram.png',
+  serviceName = 'Likes Instagram',
+  serviceType = 'Social Media Engagement',
+  areaServed = 'ID',
+  faqItems = [
+    { q: 'Apakah likes Instagram ini aman?', a: 'Ya, likes ditambahkan secara bertahap agar terlihat natural.' },
+    { q: 'Berapa lama proses penambahan likes?', a: 'Umumnya selesai dalam 1–12 jam setelah pembayaran terkonfirmasi.' }
+  ]
+} = Astro.props;
+
+const site = 'https://auradigital.id';
+
+const graph: any[] = [
+  {
+    '@type': 'WebPage',
+    '@id': `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: pageTitle,
+    description,
+    isPartOf: { '@id': `${site}/#website` },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: `${site}${imagePng}`,
+      contentUrl: `${site}${imageWebp}`,
+      encodingFormat: ['image/png', 'image/webp'],
+    }
+  },
+  {
+    '@type': 'BreadcrumbList',
+    '@id': `${pageUrl}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+      { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${site}/layanan/` },
+      { '@type': 'ListItem', position: 3, name: serviceName, item: pageUrl }
+    ]
+  },
+  {
+    '@type': 'Service',
+    '@id': `${pageUrl}#service`,
+    name: serviceName,
+    url: pageUrl,
+    description,
+    serviceType,
+    areaServed,
+    provider: { '@type': 'Organization', name: 'Aura Digital', url: site },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Likes Instagram',
+        price: '2000',
+        priceCurrency: 'IDR',
+        availability: 'https://schema.org/InStock',
+        url: `${pageUrl}?ref=order`
+      }
+    ]
+  },
+  {
+    '@type': 'OfferCatalog',
+    '@id': `${pageUrl}#catalog`,
+    name: 'Paket Likes Instagram',
+    url: pageUrl,
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        name: '100 Likes Instagram',
+        price: '200000',
+        priceCurrency: 'IDR',
+        url: `${pageUrl}?ref=order&paket=100`
+      },
+      {
+        '@type': 'Offer',
+        name: '500 Likes Instagram',
+        price: '1000000',
+        priceCurrency: 'IDR',
+        url: `${pageUrl}?ref=order&paket=500`
+      },
+      {
+        '@type': 'Offer',
+        name: '1000 Likes Instagram',
+        price: '2000000',
+        priceCurrency: 'IDR',
+        url: `${pageUrl}?ref=order&paket=1000`
+      }
+    ]
+  }
+];
+
+if (faqItems.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    mainEntity: faqItems.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a }
+    }))
+  });
+}
+
+const jsonld = { '@context': 'https://schema.org', '@graph': graph };
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
