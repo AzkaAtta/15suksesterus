@@ -1,37 +1,19 @@
-q---
+---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import SchemaViewInstagram from '@components/SchemaViewInstagram.astro'
 import { Icon } from 'astro-icon/components'
 
-const faqItems = [
-  {
-    q: "Apakah views aman untuk akun?",
-    a: "Ya, kami gunakan metode bertahap. Tetap ikuti pedoman platform (hindari spam, konten melanggar, dll)."
-  },
-  {
-    q: "Support untuk Reels saja atau Feed juga?",
-    a: "Keduanya: Reels & Feed."
-  }
+// ✅ PASTIKAN VARIABLE packages TERDEFINISI
+const packages = [
+  { name: '100 Views', price: 'Rp200.000', eta: '12–24 jam', safe: 'Aman & bertahap' },
+  { name: '1.000 Views', price: 'Rp2.000.000', eta: '1–3 hari', safe: 'Aman & bertahap' },
+  { name: '5.000 Views', price: 'Rp9.000.000', eta: '2–5 hari', safe: 'Aman & bertahap' },
 ]
 ---
 
 <DefaultLayout title="Jasa Tambah Views Instagram">
   <Fragment slot="head">
-    <SchemaViewInstagram 
-      faqItems={faqItems}
-      offers={[
-        {
-          price: "200000",
-          priceCurrency: "IDR",
-          eligibleQuantity: { value: "1000", unitText: "views" }
-        },
-        {
-          price: "2000000", 
-          priceCurrency: "IDR",
-          eligibleQuantity: { value: "5000", unitText: "views" }
-        }
-      ]}
-    />
+    <SchemaViewInstagram />
   </Fragment>
   
 
