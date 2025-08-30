@@ -1,26 +1,24 @@
 ---
 /**
- * SchemaLikesInstagram.astro — Schema lengkap untuk /likes-instagram/
- * Termasuk: WebPage, BreadcrumbList, Service(+OfferCatalog), FAQPage
+ * SchemaLikesInstagram.astro — FIX
+ * - Hapus unitText dari Offer & OfferCatalog (tidak valid di Offer)
+ * - potentialAction hanya OrderAction dengan target EntryPoint
  */
 interface FAQItem { q: string; a: string }
 
 const {
   pageUrl = 'https://auradigital.id/likes-instagram/',
-  pageTitle = 'Tambah Likes Instagram Aman & Stabil — Harga Terjangkau',
-  description = 'Jasa tambah likes Instagram untuk Reels & Feed. Likes real, aman, dan bertahap agar engagement naik & peluang masuk Explore lebih besar.',
+  pageTitle = 'Jasa Sosial Media: Tambah Likes Instagram Aman, Murah, dan Cepat',
+  description = 'Jasa tambah likes Instagram untuk Reels, Feed, dan Carousel. Suka real, aman, murah agar konten lebih dipercaya & engagement meningkat.',
   imageWebp = '/likes-instagram.webp',
   imagePng = '/likes-instagram.png',
   serviceName = 'Likes Instagram',
   serviceType = 'Social Media Likes',
   areaServed = 'ID',
-  faqItems = [
-    { q: 'Apakah likes aman?', a: 'Ya. Penambahan bertahap & dikontrol agar natural dan minim risiko.' },
-    { q: 'Berapa lama prosesnya?', a: 'Umumnya 1–24 jam setelah pembayaran terverifikasi.' }
-  ]
-} = Astro.props;
+  faqItems = []
+} = Astro.props
 
-const site = 'https://auradigital.id';
+const site = 'https://auradigital.id'
 
 const graph: any[] = [
   {
@@ -64,17 +62,19 @@ const graph: any[] = [
     offers: [
       {
         '@type': 'Offer',
-        price: '2000',
+        price: '2000',              // 2.000 per 1 like
         priceCurrency: 'IDR',
-        unitText: 'per 1 like',
         availability: 'https://schema.org/InStock',
         url: `${pageUrl}?ref=order`
       }
     ],
-    potentialAction: [
-      { '@type': 'OrderAction', target: `${pageUrl}?ref=order` },
-      { '@type': 'ContactPoint', url: `${site}/kontak/` } // gunakan ContactPoint untuk menghindari warning
-    ]
+    potentialAction: {
+      '@type': 'OrderAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${pageUrl}?ref=order`
+      }
+    }
   },
   {
     '@type': 'OfferCatalog',
@@ -87,7 +87,6 @@ const graph: any[] = [
         name: '100 Likes Instagram',
         price: '200000',
         priceCurrency: 'IDR',
-        unitText: 'per 100 likes',
         url: `${pageUrl}?ref=order&paket=100`
       },
       {
@@ -95,7 +94,6 @@ const graph: any[] = [
         name: '500 Likes Instagram',
         price: '1000000',
         priceCurrency: 'IDR',
-        unitText: 'per 500 likes',
         url: `${pageUrl}?ref=order&paket=500`
       },
       {
@@ -103,12 +101,11 @@ const graph: any[] = [
         name: '1000 Likes Instagram',
         price: '2000000',
         priceCurrency: 'IDR',
-        unitText: 'per 1000 likes',
         url: `${pageUrl}?ref=order&paket=1000`
       }
     ]
   }
-];
+]
 
 if (faqItems.length) {
   graph.push({
@@ -119,10 +116,10 @@ if (faqItems.length) {
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a }
     }))
-  });
+  })
 }
 
-const jsonld = { '@context': 'https://schema.org', '@graph': graph };
+const jsonld = { '@context': 'https://schema.org', '@graph': graph }
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
