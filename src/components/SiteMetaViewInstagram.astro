@@ -1,74 +1,52 @@
 ---
 /**
- * SiteMetaViewInstagram.astro
- * Meta tags khusus halaman Views Instagram
+ * SiteMetaViewInstagram.astro — meta tag untuk halaman /views-instagram/
  */
-interface Props {
-  title?: string
-  description?: string
-  keywords?: string[] | string
-  url?: string
-  siteName?: string
-  canonical?: string
-  noindex?: boolean
-  image?: string
-  imageAlt?: string
-  imageWidth?: number
-  imageHeight?: number
-  ogType?: 'website' | 'article' | 'product'
-  twitterCard?: 'summary_large_image' | 'summary'
-  twitterSite?: string
-  twitterCreator?: string
-  locale?: string
-  themeColor?: string
-}
+
+const siteOrigin = Astro.site?.href?.replace(/\/$/, '') || 'https://auradigital.id'
 
 const {
-  title = "Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat",
-  description = "Layanan jasa views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten lebih banyak dilihat dan berpeluang masuk explore.",
-  keywords = ['jasa view instagram','beli views reels','optimasi instagram'],
-  url = "https://auradigital.id/views-instagram/",
-  siteName = "Aura Digital",
-  canonical,
-  noindex = false,
-  image = "/views-instagram-og.png", // ✅ OG image 1200x630
-  imageAlt = "Layanan Views Instagram Aura Digital",
+  title = 'Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat',
+  description = 'Layanan jasa views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore.',
+  url = `${siteOrigin}/views-instagram/`,
+  siteName = 'Aura Digital',
+  image = '/views-instagram-og.png', // ✅ pakai file og khusus 1200x630
+  imageAlt = 'Views Instagram — Aura Digital',
   imageWidth = 1200,
   imageHeight = 630,
-  ogType = "product",
-  twitterCard = "summary_large_image",
-  twitterSite = "@auradigitalid",
-  twitterCreator = "@auradigitalid",
-  locale = "id_ID",
-  themeColor = "#ffffff",
-}: Props = Astro.props
+  ogType = 'product',
+  twitterCard = 'summary_large_image',
+  twitterSite = '@auradigitalid',
+  twitterCreator = '@auradigitalid',
+} = Astro.props
 
-const pageUrl = (canonical || url).replace(/\/?$/, "/")
+const ogImage = image.startsWith('http') ? image : `${siteOrigin}${image}`
 ---
+
 <!-- Primary -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-{Array.isArray(keywords) ? <meta name="keywords" content={keywords.join(", ")} /> : <meta name="keywords" content={keywords} />}
-<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
-<link rel="canonical" href={pageUrl} />
+
+<!-- Canonical -->
+<link rel="canonical" href={url} />
 
 <!-- Open Graph -->
-<meta property="og:title" content="Jasa Views Instagram Murah & Aman — Aura Digital" />
-<meta property="og:description" content="Tambah views Instagram real, aman, murah, dan cepat. Cocok untuk Reels & Feed." />
-<meta property="og:image" content="https://auradigital.id/views-instagram-og.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://auradigital.id/views-instagram/" />
-<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={url} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta property="og:image:width" content={String(imageWidth)} />
+<meta property="og:image:height" content={String(imageHeight)} />
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Jasa Views Instagram Murah & Aman — Aura Digital" />
-<meta name="twitter:description" content="Tambah views Instagram real, aman, murah, dan cepat. Cocok untuk Reels & Feed." />
-<meta name="twitter:image" content="https://auradigital.id/views-instagram-og.png" />
-
-<!-- Theming -->
-<meta name="theme-color" content={themeColor} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<!-- Twitter -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:site" content={twitterSite} />
+<meta name="twitter:creator" content={twitterCreator} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
