@@ -51,20 +51,37 @@ import { Icon } from 'astro-icon/components'
   </section>
 
   <!-- ===== DETAIL LAYANAN ===== -->
-    <section class="container my-16">
-  <h2 class="text-3xl md:text-4xl font-semibold mb-4">Mengapa Views Instagram Penting?</h2>
-  <p class="mb-4">
-    Views adalah salah satu metrik terkuat dalam algoritma Instagram. Semakin banyak orang
-    menonton konten Anda, semakin besar peluang Instagram menilai konten tersebut relevan dan
-    layak direkomendasikan ke audiens yang lebih luas. Inilah alasan mengapa kreator konten,
-    brand, hingga UMKM berusaha meningkatkan jumlah tayangan.
+   <!-- ===== 2) KENAPA VIEWS ITU PENTING (GRID BENEFIT) ===== -->
+<section class="container py-16">
+  <h2 class="text-3xl md:text-4xl font-semibold">Kenapa <span class="text-purple-600">Views</span> Penting?</h2>
+  <p class="mt-3 opacity-80 max-w-3xl">
+    Views yang konsisten memberi sinyal kuat pada algoritma bahwa konten Anda relevan. Dampaknya: jangkauan organik lebih luas, engagement meningkat, dan brand makin kredibel.
   </p>
-  <ul class="list-disc pl-6 space-y-2">
-    <li><strong>Masuk Explore:</strong> Konten dengan views tinggi punya kesempatan lebih besar masuk halaman Explore.</li>
-    <li><strong>Bangun Kredibilitas:</strong> Akun dengan tayangan konsisten dipandang lebih terpercaya oleh audiens baru.</li>
-    <li><strong>Optimasi Engagement:</strong> Tayangan tinggi membuka peluang interaksi lebih banyak berupa like, komentar, dan share.</li>
-  </ul>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    {[
+      { icon:'lucide:trending-up', title:'Sinyal Algoritma', desc:'Views stabil membantu konten diasosiasikan sebagai konten berkualitas.' },
+      { icon:'lucide:users', title:'Jangkauan Lebih Luas', desc:'Meningkatkan peluang dijangkau audiens baru di Explore/Hashtag.' },
+      { icon:'lucide:sparkles', title:'Brand Trust', desc:'Angka tayangan yang baik menambah kepercayaan pengguna baru.' },
+      { icon:'lucide:play', title:'Dukungan Reels & Feed', desc:'Cocok untuk format video Reels maupun video Feed.' },
+      { icon:'lucide:clock', title:'Streaming Bertahap', desc:'Kami distribusikan bertahap agar terlihat natural.' },
+      { icon:'lucide:check-circle', title:'Aman & Terkontrol', desc:'Parameter disesuaikan dengan kebutuhan & target akun.' },
+    ].map((b) => (
+      <article class="p-6 rounded-2xl border shadow-sm bg-white/70 dark:bg-neutral-900/70 hover:shadow-md transition">
+        <div class="flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 dark:from-neutral-800 dark:to-neutral-800">
+            <Icon name={b.icon} size="28" />
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold">{b.title}</h3>
+            <p class="opacity-80">{b.desc}</p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
 </section>
+
 
 
 </DefaultLayout>
