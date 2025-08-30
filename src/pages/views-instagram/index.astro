@@ -5,13 +5,13 @@ import SchemaViewInstagram from '@components/SchemaViewInstagram.astro'
 import { Icon } from 'astro-icon/components'
 ---
 
-<DefaultLayout title="View Instagram">
+<DefaultLayout title="Views Instagram">
   <Fragment slot="head">
     <SiteMetaViewInstagram
       title="Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat"
       description="Layanan jasa views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore."
-      url="https://auradigital.id/view-instagram/"
-      image="/view-instagram.png"
+      url="https://auradigital.id/views-instagram/"
+      image="/views-instagram.png"
       siteName="Aura Digital"
       ogType="product"
       keywords={[
@@ -23,18 +23,22 @@ import { Icon } from 'astro-icon/components'
       ]}
     />
 
-    <!-- ✅ Schema khusus halaman view Instagram -->
+    <!-- ✅ Schema khusus halaman /views-instagram/ -->
     <SchemaViewInstagram
-      pageUrl="https://auradigital.id/view-instagram/"
+      pageUrl="https://auradigital.id/views-instagram/"
       pageTitle="Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat"
       description="Jasa tambah views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore."
-      imageWebp="/view-instagram.webp"
-      imagePng="/view-instagram.png"
+      imageWebp="/views-instagram.webp"
+      imagePng="/views-instagram.png"
       serviceName="Views Instagram"
-      serviceUrl="https://auradigital.id/view-instagram/"
-      price="200000"
-      priceCurrency="IDR"
-      unitText="per 1000 views"
+      serviceUrl="https://auradigital.id/views-instagram/"
+      offers={[
+        { price: '200000', priceCurrency: 'IDR', unitText: 'per 1000', url: 'https://auradigital.id/views-instagram/?ref=order' }
+      ]}
+      faqItems={[
+        { q: 'Berapa lama proses views?', a: 'Biasanya mulai 5–30 menit, drip bertahap hingga selesai.' },
+        { q: 'Apakah aman untuk akun?', a: 'Ya, metode kami aman dan natural dengan pembagian drip.' }
+      ]}
     />
   </Fragment>
 
@@ -42,8 +46,8 @@ import { Icon } from 'astro-icon/components'
   <section class="container my-12">
     <h1 class="text-5xl md:text-6xl font-bold">Jasa Tambah Views Instagram</h1>
     <p class="text-xl opacity-80 mt-4 max-w-3xl">
-      Tingkatkan jumlah tayangan Instagram Reels & Feed dengan cepat, aman, dan murah.
-      Bantu konten Anda lebih mudah masuk **Explore** dan menjangkau audiens lebih luas.
+      Tingkatkan tayangan Reels & Feed dengan cepat, aman, dan ramah anggaran.
+      Bantu konten lebih mudah masuk Explore dan menjangkau audiens yang lebih luas.
     </p>
 
     <!-- Gambar hero -->
@@ -54,5 +58,4 @@ import { Icon } from 'astro-icon/components'
       </picture>
     </figure>
   </section>
-
 </DefaultLayout>
