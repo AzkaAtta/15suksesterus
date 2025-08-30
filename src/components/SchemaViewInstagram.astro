@@ -1,67 +1,43 @@
 ---
 /**
- * SchemaViewInstagram.astro — Schema untuk halaman jasa /views-instagram/
+ * SchemaViewInstagram.astro — Schema lengkap untuk halaman /views-instagram/
+ * Termasuk: WebPage, BreadcrumbList, Service(+OfferCatalog), FAQPage
  */
-
-interface Offer {
-  price: string | number
-  priceCurrency?: string
-  unitText?: string
-  url?: string
-  availability?: string
-}
 
 interface FAQItem { q: string; a: string }
 
-interface Props {
-  pageUrl: string
-  pageTitle: string
-  description: string
-  imageWebp?: string
-  imagePng?: string
-  serviceName: string
-  serviceUrl: string
-  serviceType?: string
-  areaServed?: string
-  offers?: Offer[]
-  faqItems?: FAQItem[]
-}
-
 const {
-  pageUrl,
-  pageTitle,
-  description,
+  pageUrl = 'https://auradigital.id/views-instagram/',
+  pageTitle = 'Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat',
+  description = 'Jasa tambah views Instagram untuk Reels & Feed. Views real, aman, murah agar konten lebih banyak ditonton & berpeluang masuk Explore.',
   imageWebp = '/views-instagram.webp',
   imagePng = '/views-instagram.png',
   serviceName = 'Views Instagram',
-  serviceUrl = '/views-instagram/',
   serviceType = 'Video Views',
   areaServed = 'ID',
-  offers = [
-    { price: '200000', priceCurrency: 'IDR', unitText: 'per 1000', url: '/views-instagram/', availability: 'https://schema.org/InStock' }
-  ],
-  faqItems = []
-}: Props = Astro.props
+  faqItems = [
+    { q: 'Apakah views Instagram ini aman?', a: 'Ya, proses bertahap & menggunakan metode yang aman agar akun tidak terkena penalti.' },
+    { q: 'Berapa lama proses penambahan views?', a: 'Umumnya 1–24 jam setelah pembayaran terkonfirmasi.' }
+  ]
+} = Astro.props
 
-const site = Astro.site?.href?.replace(/\/$/, '') || 'https://auradigital.id'
+const site = 'https://auradigital.id'
 
-// absolute image
-const serviceImage = {
-  '@type': 'ImageObject',
-  url: new URL(imagePng, site).href,
-  contentUrl: new URL(imageWebp, site).href,
-  encodingFormat: ['image/png', 'image/webp']
-}
-
+// ===== Graph JSON-LD =====
 const graph: any[] = [
   {
     '@type': 'WebPage',
     '@id': `${pageUrl}#webpage`,
-    url: new URL(pageUrl, site).href,
+    url: pageUrl,
     name: pageTitle,
     description,
     isPartOf: { '@id': `${site}/#website` },
-    primaryImageOfPage: serviceImage
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: `${site}${imagePng}`,
+      contentUrl: `${site}${imageWebp}`,
+      encodingFormat: ['image/png', 'image/webp']
+    }
   },
   {
     '@type': 'BreadcrumbList',
@@ -69,35 +45,74 @@ const graph: any[] = [
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
       { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${site}/layanan/` },
-      { '@type': 'ListItem', position: 3, name: serviceName, item: new URL(pageUrl, site).href }
+      { '@type': 'ListItem', position: 3, name: serviceName, item: pageUrl }
     ]
   },
   {
     '@type': 'Service',
-    '@id': `${serviceUrl}#service`,
+    '@id': `${pageUrl}#service`,
     name: serviceName,
-    url: new URL(serviceUrl, site).href,
+    url: pageUrl,
     description,
     serviceType,
     areaServed,
-    image: serviceImage,
+    image: {
+      '@type': 'ImageObject',
+      url: `${site}${imagePng}`,
+      contentUrl: `${site}${imageWebp}`,
+      encodingFormat: ['image/png', 'image/webp']
+    },
     provider: { '@type': 'Organization', name: 'Aura Digital', url: site },
-    offers: offers.map(o => ({
-      '@type': 'Offer',
-      price: String(o.price),
-      priceCurrency: o.priceCurrency || 'IDR',
-      ...(o.unitText ? { unitText: o.unitText } : {}),
-      availability: o.availability || 'https://schema.org/InStock',
-      url: new URL(o.url || serviceUrl, site).href
-    })),
+    offers: [
+      {
+        '@type': 'Offer',
+        price: '2000',
+        priceCurrency: 'IDR',
+        unitText: 'per 1 view',
+        availability: 'https://schema.org/InStock',
+        url: `${pageUrl}?ref=order`
+      }
+    ],
     potentialAction: [
-      { '@type': 'OrderAction', target: new URL(`${serviceUrl}?ref=order`, site).href },
+      { '@type': 'OrderAction', target: `${pageUrl}?ref=order` },
       { '@type': 'ContactAction', target: `${site}/kontak/` }
+    ]
+  },
+  {
+    '@type': 'OfferCatalog',
+    '@id': `${pageUrl}#catalog`,
+    name: 'Paket Views Instagram',
+    url: pageUrl,
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        name: '100 Views Instagram',
+        price: '200000',
+        priceCurrency: 'IDR',
+        unitText: 'per 100 views',
+        url: `${pageUrl}?ref=order&paket=100`
+      },
+      {
+        '@type': 'Offer',
+        name: '500 Views Instagram',
+        price: '1000000',
+        priceCurrency: 'IDR',
+        unitText: 'per 500 views',
+        url: `${pageUrl}?ref=order&paket=500`
+      },
+      {
+        '@type': 'Offer',
+        name: '1000 Views Instagram',
+        price: '2000000',
+        priceCurrency: 'IDR',
+        unitText: 'per 1000 views',
+        url: `${pageUrl}?ref=order&paket=1000`
+      }
     ]
   }
 ]
 
-// optional FAQ
+// Tambahkan FAQ kalau ada
 if (faqItems.length) {
   graph.push({
     '@type': 'FAQPage',
