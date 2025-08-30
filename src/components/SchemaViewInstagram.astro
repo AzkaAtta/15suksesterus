@@ -1,12 +1,6 @@
 ---
 /**
- * SchemaViewInstagram.astro
- * JSON-LD untuk halaman /views-instagram/
- * – WebPage
- * – BreadcrumbList
- * – Service (+Offer)
- * – FAQPage (opsional)
- * Semua URL root-relative (tanpa https).
+ * SchemaViewInstagram.astro - VERSION IMPROVED
  */
 
 interface Offer {
@@ -15,7 +9,12 @@ interface Offer {
   url?: string;
   unitText?: string;
   availability?: string;
+  eligibleQuantity?: {
+    value: string;
+    unitText: string;
+  };
 }
+
 interface FAQ { q: string; a: string; }
 
 interface Props {
@@ -24,118 +23,143 @@ interface Props {
   description?: string;
   imagePng?: string;
   imageWebp?: string;
-
   serviceName?: string;
   serviceUrl?: string;
   serviceType?: string;
   areaServed?: string;
   offers?: Offer[];
-
-  faqItems?: FAQ[]; // opsional
+  faqItems?: FAQ[];
 }
 
+const baseUrl = "https://auradigital.id";
+
 const {
-  // Halaman
-  pageUrl = "/views-instagram/",
+  pageUrl = `${baseUrl}/views-instagram/`,
   pageTitle = "Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat",
   description = "Tambah tayangan Reels & Feed secara aman & bertahap. Bantu konten masuk Explore dan raih jangkauan lebih luas.",
-  imagePng = "/views-instagram.png",
-  imageWebp = "/views-instagram.webp",
-
-  // Service
+  imagePng = `${baseUrl}/views-instagram.png`,
+  imageWebp = `${baseUrl}/views-instagram.webp`,
   serviceName = "Views Instagram",
-  serviceUrl = "/views-instagram/",
-  serviceType = "Video Views",
+  serviceUrl = `${baseUrl}/views-instagram/`,
+  serviceType = "Social Media Marketing",
   areaServed = "ID",
   offers = [
     {
       price: "200000",
       priceCurrency: "IDR",
-      url: "/views-instagram/?ref=order",
-      unitText: "per 100",
+      url: `${baseUrl}/views-instagram/?ref=order`,
+      unitText: "per 100 views",
       availability: "https://schema.org/InStock",
+      eligibleQuantity: {
+        value: "100",
+        unitText: "views"
+      }
     },
   ],
-
-  // FAQ (opsional)
   faqItems = [],
 }: Props = Astro.props;
 
 // Bangun graph
 const graph: any[] = [
+  // Organization
+  {
+    "@type": "Organization",
+    "@id": `${baseUrl}/#organization`,
+    "name": "Aura Digital",
+    "url": baseUrl,
+    "logo": `${baseUrl}/logo.png`,
+    "sameAs": [
+      "https://www.instagram.com/auradigital",
+      "https://www.linkedin.com/company/auradigital"
+    ]
+  },
+  
+  // Website
+  {
+    "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
+    "url": baseUrl,
+    "name": "Aura Digital",
+    "description": "Jasa Digital Marketing Profesional",
+    "publisher": { "@id": `${baseUrl}/#organization` }
+  },
+  
+  // WebPage
   {
     "@type": "WebPage",
     "@id": `${pageUrl}#webpage`,
-    url: pageUrl,
-    name: pageTitle,
-    description,
-    primaryImageOfPage: {
+    "url": pageUrl,
+    "name": pageTitle,
+    "description": description,
+    "isPartOf": { "@id": `${baseUrl}/#website` },
+    "primaryImageOfPage": {
       "@type": "ImageObject",
-      url: imagePng,
-      contentUrl: imageWebp,
-      encodingFormat: ["image/png", "image/webp"],
-    },
-    // Jika Anda punya WebSite global, ID ini boleh diarahkan ke sana
-    isPartOf: { "@id": "/#website" },
+      "url": imagePng,
+      "contentUrl": imageWebp
+    }
   },
+  
+  // Breadcrumb
   {
     "@type": "BreadcrumbList",
     "@id": `${pageUrl}#breadcrumb`,
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-      { "@type": "ListItem", position: 2, name: "Layanan", item: "/layanan/" },
-      { "@type": "ListItem", position: 3, name: serviceName, item: pageUrl },
-    ],
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+      { "@type": "ListItem", "position": 2, "name": "Layanan", "item": `${baseUrl}/layanan/` },
+      { "@type": "ListItem", "position": 3, "name": serviceName, "item": pageUrl }
+    ]
   },
+  
+  // Service
   {
     "@type": "Service",
     "@id": `${serviceUrl}#service`,
-    name: serviceName,
-    url: serviceUrl,
-    description,
-    serviceType,
-    areaServed,
-    image: {
-      "@type": "ImageObject",
-      url: imagePng,
-      contentUrl: imageWebp,
-      encodingFormat: ["image/png", "image/webp"],
-    },
-    provider: { "@type": "Organization", name: "Aura Digital", url: "/" },
-    offers: offers.map((o) => ({
+    "name": serviceName,
+    "url": serviceUrl,
+    "description": description,
+    "serviceType": serviceType,
+    "areaServed": areaServed,
+    "provider": { "@id": `${baseUrl}/#organization` },
+    "offers": offers.map((offer) => ({
       "@type": "Offer",
-      price: o.price,
-      priceCurrency: o.priceCurrency ?? "IDR",
-      url: o.url ?? serviceUrl,
-      availability: o.availability ?? "https://schema.org/InStock",
-      // unitText bukan properti standar Offer, tapi aman untuk dibiarkan;
-      // kalau mau sangat ketat schema.org, hapus baris di bawah:
-      unitText: o.unitText ?? "per 1000",
-    })),
-    potentialAction: [
-      { "@type": "OrderAction", target: `${serviceUrl}?ref=order` },
-      { "@type": "ContactAction", target: "/kontak/" },
-    ],
-  },
+      "price": offer.price,
+      "priceCurrency": offer.priceCurrency || "IDR",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": offer.price,
+        "priceCurrency": offer.priceCurrency || "IDR",
+        "eligibleQuantity": offer.eligibleQuantity || {
+          "@type": "QuantitativeValue",
+          "value": "1000",
+          "unitText": "views"
+        }
+      },
+      "availability": offer.availability || "https://schema.org/InStock",
+      "url": offer.url || serviceUrl
+    }))
+  }
 ];
 
-// Tambahkan FAQPage jika ada
+// FAQ
 if (faqItems.length > 0) {
   graph.push({
     "@type": "FAQPage",
     "@id": `${pageUrl}#faq`,
-    mainEntity: faqItems.map((f) => ({
+    "mainEntity": faqItems.map((faq, index) => ({
       "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
   });
 }
 ---
 
 <script type="application/ld+json">
-  {JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": graph
-  })}
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": graph
+})}
 </script>
