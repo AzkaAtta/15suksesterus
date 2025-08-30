@@ -1,6 +1,6 @@
 ---
 /**
- * SchemaViewInstagram.astro — Schema lengkap untuk halaman /views-instagram/
+ * SchemaViewInstagram.astro — Schema valid untuk halaman /views-instagram/
  * Termasuk: WebPage, BreadcrumbList, Service(+OfferCatalog), FAQPage
  */
 
@@ -63,20 +63,26 @@ const graph: any[] = [
       encodingFormat: ['image/png', 'image/webp']
     },
     provider: { '@type': 'Organization', name: 'Aura Digital', url: site },
-    offers: [
-      {
-        '@type': 'Offer',
-        price: '2000',
-        priceCurrency: 'IDR',
-        unitText: 'per 1 view',
-        availability: 'https://schema.org/InStock',
-        url: `${pageUrl}?ref=order`
+    offers: {
+      '@type': 'Offer',
+      price: '2000',
+      priceCurrency: 'IDR',
+      eligibleQuantity: {
+        '@type': 'QuantitativeValue',
+        value: 1,
+        unitCode: 'C62',
+        unitText: 'view'
+      },
+      availability: 'https://schema.org/InStock',
+      url: `${pageUrl}?ref=order`
+    },
+    potentialAction: {
+      '@type': 'OrderAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${pageUrl}?ref=order`
       }
-    ],
-    potentialAction: [
-      { '@type': 'OrderAction', target: `${pageUrl}?ref=order` },
-      { '@type': 'ContactAction', target: `${site}/kontak/` }
-    ]
+    }
   },
   {
     '@type': 'OfferCatalog',
@@ -89,7 +95,12 @@ const graph: any[] = [
         name: '100 Views Instagram',
         price: '200000',
         priceCurrency: 'IDR',
-        unitText: 'per 100 views',
+        eligibleQuantity: {
+          '@type': 'QuantitativeValue',
+          value: 100,
+          unitCode: 'C62',
+          unitText: 'view'
+        },
         url: `${pageUrl}?ref=order&paket=100`
       },
       {
@@ -97,7 +108,12 @@ const graph: any[] = [
         name: '500 Views Instagram',
         price: '1000000',
         priceCurrency: 'IDR',
-        unitText: 'per 500 views',
+        eligibleQuantity: {
+          '@type': 'QuantitativeValue',
+          value: 500,
+          unitCode: 'C62',
+          unitText: 'view'
+        },
         url: `${pageUrl}?ref=order&paket=500`
       },
       {
@@ -105,7 +121,12 @@ const graph: any[] = [
         name: '1000 Views Instagram',
         price: '2000000',
         priceCurrency: 'IDR',
-        unitText: 'per 1000 views',
+        eligibleQuantity: {
+          '@type': 'QuantitativeValue',
+          value: 1000,
+          unitCode: 'C62',
+          unitText: 'view'
+        },
         url: `${pageUrl}?ref=order&paket=1000`
       }
     ]
