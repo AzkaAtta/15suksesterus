@@ -1,127 +1,141 @@
 ---
 /**
- * Schema untuk halaman /views-instagram/ (root-relative URLs)
- * Termasuk: WebPage + BreadcrumbList + Service(+Offer) + FAQPage (opsional)
+ * SchemaViewInstagram.astro
+ * JSON-LD untuk halaman /views-instagram/
+ * – WebPage
+ * – BreadcrumbList
+ * – Service (+Offer)
+ * – FAQPage (opsional)
+ * Semua URL root-relative (tanpa https).
  */
 
 interface Offer {
   price: string;
   priceCurrency?: string;
-  unitText?: string;
   url?: string;
+  unitText?: string;
   availability?: string;
 }
-interface FaqItem { q: string; a: string; }
+interface FAQ { q: string; a: string; }
 
 interface Props {
-  // Halaman
-  pageUrl?: string;              // default: /views-instagram/
+  pageUrl?: string;
   pageTitle?: string;
   description?: string;
+  imagePng?: string;
+  imageWebp?: string;
 
-  // Gambar
-  imageWebp?: string;            // default: /views-instagram.webp
-  imagePng?: string;             // default: /views-instagram.png
+  serviceName?: string;
+  serviceUrl?: string;
+  serviceType?: string;
+  areaServed?: string;
+  offers?: Offer[];
 
-  // Service
-  serviceName?: string;          // default: Views Instagram
-  serviceUrl?: string;           // default: /views-instagram/
-  serviceType?: string;          // default: Video Views
-  areaServed?: string;           // default: ID
-  offers?: Offer[];              // default contoh di bawah
-
-  // FAQ (opsional)
-  faqItems?: FaqItem[];          // jika kosong, FAQPage tidak dioutput
+  faqItems?: FAQ[]; // opsional
 }
 
 const {
-  pageUrl = '/views-instagram/',
-  pageTitle = 'Views Instagram Aman & Stabil — Aura Digital',
-  description = 'Tambahkan views untuk Reels/Feed secara aman & bertahap. Optimasi sinyal algoritma dan jangkauan konten.',
+  // Halaman
+  pageUrl = "/views-instagram/",
+  pageTitle = "Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat",
+  description = "Tambah tayangan Reels & Feed secara aman & bertahap. Bantu konten masuk Explore dan raih jangkauan lebih luas.",
+  imagePng = "/views-instagram.png",
+  imageWebp = "/views-instagram.webp",
 
-  imageWebp = '/views-instagram.webp',
-  imagePng = '/views-instagram.png',
-
-  serviceName = 'Views Instagram',
-  serviceUrl = '/views-instagram/',
-  serviceType = 'Video Views',
-  areaServed = 'ID',
+  // Service
+  serviceName = "Views Instagram",
+  serviceUrl = "/views-instagram/",
+  serviceType = "Video Views",
+  areaServed = "ID",
   offers = [
-    { price: '150000', priceCurrency: 'IDR', unitText: 'per 1000', url: '/views-instagram/?ref=order', availability: 'https://schema.org/InStock' }
+    {
+      price: "200000",
+      priceCurrency: "IDR",
+      url: "/views-instagram/?ref=order",
+      unitText: "per 100",
+      availability: "https://schema.org/InStock",
+    },
   ],
 
+  // FAQ (opsional)
   faqItems = [],
 }: Props = Astro.props;
 
-// Graph dasar
+// Bangun graph
 const graph: any[] = [
   {
-    '@type': 'WebPage',
-    '@id': `${pageUrl}#webpage`,
+    "@type": "WebPage",
+    "@id": `${pageUrl}#webpage`,
     url: pageUrl,
     name: pageTitle,
     description,
     primaryImageOfPage: {
-      '@type': 'ImageObject',
+      "@type": "ImageObject",
       url: imagePng,
       contentUrl: imageWebp,
-      encodingFormat: ['image/png', 'image/webp'],
+      encodingFormat: ["image/png", "image/webp"],
     },
-    isPartOf: { '@id': '/#website' } // refer ke WebSite global (bisa kamu output di layout/homepage)
+    // Jika Anda punya WebSite global, ID ini boleh diarahkan ke sana
+    isPartOf: { "@id": "/#website" },
   },
   {
-    '@type': 'BreadcrumbList',
-    '@id': `${pageUrl}#breadcrumb`,
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: '/' },
-      { '@type': 'ListItem', position: 2, name: 'Layanan', item: '/layanan/' },
-      { '@type': 'ListItem', position: 3, name: serviceName, item: pageUrl },
+      { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+      { "@type": "ListItem", position: 2, name: "Layanan", item: "/layanan/" },
+      { "@type": "ListItem", position: 3, name: serviceName, item: pageUrl },
     ],
   },
   {
-    '@type': 'Service',
-    '@id': `${serviceUrl}#service`,
+    "@type": "Service",
+    "@id": `${serviceUrl}#service`,
     name: serviceName,
     url: serviceUrl,
     description,
     serviceType,
     areaServed,
     image: {
-      '@type': 'ImageObject',
+      "@type": "ImageObject",
       url: imagePng,
       contentUrl: imageWebp,
-      encodingFormat: ['image/png', 'image/webp'],
+      encodingFormat: ["image/png", "image/webp"],
     },
-    provider: { '@type': 'Organization', name: 'Aura Digital', url: '/' },
-    offers: offers.map(o => ({
-      '@type': 'Offer',
+    provider: { "@type": "Organization", name: "Aura Digital", url: "/" },
+    offers: offers.map((o) => ({
+      "@type": "Offer",
       price: o.price,
-      priceCurrency: o.priceCurrency ?? 'IDR',
-      unitText: o.unitText ?? 'per 1000',
+      priceCurrency: o.priceCurrency ?? "IDR",
       url: o.url ?? serviceUrl,
-      availability: o.availability ?? 'https://schema.org/InStock',
+      availability: o.availability ?? "https://schema.org/InStock",
+      // unitText bukan properti standar Offer, tapi aman untuk dibiarkan;
+      // kalau mau sangat ketat schema.org, hapus baris di bawah:
+      unitText: o.unitText ?? "per 1000",
     })),
     potentialAction: [
-      { '@type': 'OrderAction', target: `${serviceUrl}?ref=order` },
-      { '@type': 'ContactAction', target: '/kontak/' },
+      { "@type": "OrderAction", target: `${serviceUrl}?ref=order` },
+      { "@type": "ContactAction", target: "/kontak/" },
     ],
   },
 ];
 
-// Tambahkan FAQPage kalau ada data FAQ
+// Tambahkan FAQPage jika ada
 if (faqItems.length > 0) {
   graph.push({
-    '@type': 'FAQPage',
-    '@id': `${pageUrl}#faq`,
-    mainEntity: faqItems.map(item => ({
-      '@type': 'Question',
-      name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a }
-    }))
+    "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
+    mainEntity: faqItems.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   });
 }
 ---
 
 <script type="application/ld+json">
-  {JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}
+  {JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": graph
+  })}
 </script>
