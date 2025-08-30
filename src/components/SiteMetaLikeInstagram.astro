@@ -1,0 +1,50 @@
+---
+/**
+ * SiteMetaLikeInstagram.astro — Meta tag khusus halaman /likes-instagram/
+ */
+interface Props {
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  siteName?: string;
+  ogType?: string;
+  keywords?: string[] | string;
+}
+
+const {
+  title = 'Jasa Tambah Likes Instagram — Aman, Murah & Cepat | Aura Digital',
+  description = 'Layanan tambah likes Instagram untuk Feed & Reels. Aman, cepat, murah, dan membantu meningkatkan kredibilitas serta engagement akun Anda.',
+  url = 'https://auradigital.id/likes-instagram/',
+  image = '/likes-instagram.png',
+  siteName = 'Aura Digital',
+  ogType = 'product',
+  keywords = [
+    'jasa like instagram',
+    'beli likes instagram',
+    'tambah likes reels',
+    'jasa sosial media murah',
+    'optimasi instagram'
+  ],
+}: Props = Astro.props;
+
+const kw = Array.isArray(keywords) ? keywords.join(', ') : keywords;
+---
+
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{kw && <meta name="keywords" content={kw} />}
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={url} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:image" content={image} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<link rel="canonical" href={url} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
