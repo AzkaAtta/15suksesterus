@@ -1,144 +1,116 @@
 ---
 /**
- * SchemaViewInstagram.astro - FIXED VERSION
- * TANPA Organization schema (karena sudah ada di tempat lain)
+ * SchemaViewInstagram.astro — Schema untuk halaman jasa /views-instagram/
  */
 
 interface Offer {
-  price: string;
-  priceCurrency?: string;
-  url?: string;
-  availability?: string;
-  eligibleQuantity?: {
-    value: string;
-    unitText: string;
-  };
+  price: string | number
+  priceCurrency?: string
+  unitText?: string
+  url?: string
+  availability?: string
 }
 
-interface FAQ { q: string; a: string; }
+interface FAQItem { q: string; a: string }
 
 interface Props {
-  pageUrl?: string;
-  pageTitle?: string;
-  description?: string;
-  imagePng?: string;
-  imageWebp?: string;
-  serviceName?: string;
-  serviceUrl?: string;
-  serviceType?: string;
-  areaServed?: string;
-  offers?: Offer[];
-  faqItems?: FAQ[];
+  pageUrl: string
+  pageTitle: string
+  description: string
+  imageWebp?: string
+  imagePng?: string
+  serviceName: string
+  serviceUrl: string
+  serviceType?: string
+  areaServed?: string
+  offers?: Offer[]
+  faqItems?: FAQItem[]
 }
-
-const baseUrl = "https://auradigital.id";
 
 const {
-  pageUrl = `${baseUrl}/views-instagram/`,
-  pageTitle = "Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat",
-  description = "Tambah tayangan Reels & Feed secara aman & bertahap. Bantu konten masuk Explore dan raih jangkauan lebih luas.",
-  imagePng = `${baseUrl}/views-instagram.png`,
-  imageWebp = `${baseUrl}/views-instagram.webp`,
-  serviceName = "Views Instagram",
-  serviceUrl = `${baseUrl}/views-instagram/`,
-  serviceType = "SocialMediaMarketing",
-  areaServed = "ID",
+  pageUrl,
+  pageTitle,
+  description,
+  imageWebp = '/views-instagram.webp',
+  imagePng = '/views-instagram.png',
+  serviceName = 'Views Instagram',
+  serviceUrl = '/views-instagram/',
+  serviceType = 'Video Views',
+  areaServed = 'ID',
   offers = [
-    {
-      price: "200000",
-      priceCurrency: "IDR",
-      url: `${baseUrl}/views-instagram/?ref=order`,
-      availability: "https://schema.org/InStock",
-      eligibleQuantity: {
-        value: "1000",
-        unitText: "views"
-      }
-    },
+    { price: '200000', priceCurrency: 'IDR', unitText: 'per 1000', url: '/views-instagram/', availability: 'https://schema.org/InStock' }
   ],
-  faqItems = [],
-} = Astro.props;
+  faqItems = []
+}: Props = Astro.props
 
-// Bangun graph TANPA Organization
+const site = Astro.site?.href?.replace(/\/$/, '') || 'https://auradigital.id'
+
+// absolute image
+const serviceImage = {
+  '@type': 'ImageObject',
+  url: new URL(imagePng, site).href,
+  contentUrl: new URL(imageWebp, site).href,
+  encodingFormat: ['image/png', 'image/webp']
+}
+
 const graph: any[] = [
-  // WebPage
   {
-    "@type": "WebPage",
-    "@id": `${pageUrl}#webpage`,
-    "url": pageUrl,
-    "name": pageTitle,
-    "description": description,
-    "isPartOf": { "@id": `${baseUrl}/#website` },
-    "primaryImageOfPage": {
-      "@type": "ImageObject",
-      "url": imagePng
-    }
+    '@type': 'WebPage',
+    '@id': `${pageUrl}#webpage`,
+    url: new URL(pageUrl, site).href,
+    name: pageTitle,
+    description,
+    isPartOf: { '@id': `${site}/#website` },
+    primaryImageOfPage: serviceImage
   },
-  
-  // Breadcrumb
   {
-    "@type": "BreadcrumbList",
-    "@id": `${pageUrl}#breadcrumb`,
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
-      { "@type": "ListItem", "position": 2, "name": "Layanan", "item": `${baseUrl}/layanan/` },
-      { "@type": "ListItem", "position": 3, "name": serviceName, "item": pageUrl }
+    '@type': 'BreadcrumbList',
+    '@id': `${pageUrl}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+      { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${site}/layanan/` },
+      { '@type': 'ListItem', position: 3, name: serviceName, item: new URL(pageUrl, site).href }
     ]
   },
-  
-  // Service - Reference ke Organization yang sudah ada
   {
-    "@type": "Service",
-    "@id": `${serviceUrl}#service`,
-    "name": serviceName,
-    "url": serviceUrl,
-    "description": description,
-    "serviceType": serviceType,
-    "areaServed": areaServed,
-    "provider": { 
-      "@type": "Organization", 
-      "name": "Aura Digital",
-      "url": baseUrl
-    },
-    "offers": offers.map((offer) => ({
-      "@type": "Offer",
-      "price": offer.price,
-      "priceCurrency": offer.priceCurrency || "IDR",
-      "priceSpecification": {
-        "@type": "PriceSpecification",
-        "price": offer.price,
-        "priceCurrency": offer.priceCurrency || "IDR",
-        "eligibleQuantity": offer.eligibleQuantity || {
-          "@type": "QuantitativeValue",
-          "value": "1000",
-          "unitText": "views"
-        }
-      },
-      "availability": offer.availability || "https://schema.org/InStock",
-      "url": offer.url || serviceUrl
-    }))
+    '@type': 'Service',
+    '@id': `${serviceUrl}#service`,
+    name: serviceName,
+    url: new URL(serviceUrl, site).href,
+    description,
+    serviceType,
+    areaServed,
+    image: serviceImage,
+    provider: { '@type': 'Organization', name: 'Aura Digital', url: site },
+    offers: offers.map(o => ({
+      '@type': 'Offer',
+      price: String(o.price),
+      priceCurrency: o.priceCurrency || 'IDR',
+      ...(o.unitText ? { unitText: o.unitText } : {}),
+      availability: o.availability || 'https://schema.org/InStock',
+      url: new URL(o.url || serviceUrl, site).href
+    })),
+    potentialAction: [
+      { '@type': 'OrderAction', target: new URL(`${serviceUrl}?ref=order`, site).href },
+      { '@type': 'ContactAction', target: `${site}/kontak/` }
+    ]
   }
-];
+]
 
-// FAQ
-if (faqItems.length > 0) {
+// optional FAQ
+if (faqItems.length) {
   graph.push({
-    "@type": "FAQPage",
-    "@id": `${pageUrl}#faq`,
-    "mainEntity": faqItems.map((faq) => ({
-      "@type": "Question",
-      "name": faq.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.a
-      }
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    mainEntity: faqItems.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a }
     }))
-  });
+  })
 }
+
+const jsonld = { '@context': 'https://schema.org', '@graph': graph }
 ---
 
-<script type="application/ld+json">
-{JSON.stringify({
-  "@context": "https://schema.org",
-  "@graph": graph
-})}
-</script>
+<script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
