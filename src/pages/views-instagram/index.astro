@@ -1,0 +1,58 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import SiteMetaViewInstagram from '@components/SiteMetaViewInstagram.astro'
+import SchemaViewInstagram from '@components/SchemaViewInstagram.astro'
+import { Icon } from 'astro-icon/components'
+---
+
+<DefaultLayout title="View Instagram">
+  <Fragment slot="head">
+    <SiteMetaViewInstagram
+      title="Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat"
+      description="Layanan jasa views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore."
+      url="https://auradigital.id/view-instagram/"
+      image="/view-instagram.png"
+      siteName="Aura Digital"
+      ogType="product"
+      keywords={[
+        'jasa view instagram',
+        'tambah view reels',
+        'beli views instagram murah',
+        'jasa sosial media aman',
+        'optimasi instagram'
+      ]}
+    />
+
+    <!-- ✅ Schema khusus halaman view Instagram -->
+    <SchemaViewInstagram
+      pageUrl="https://auradigital.id/view-instagram/"
+      pageTitle="Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat"
+      description="Jasa tambah views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore."
+      imageWebp="/view-instagram.webp"
+      imagePng="/view-instagram.png"
+      serviceName="Views Instagram"
+      serviceUrl="https://auradigital.id/view-instagram/"
+      price="200000"
+      priceCurrency="IDR"
+      unitText="per 1000 views"
+    />
+  </Fragment>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="container my-12">
+    <h1 class="text-5xl md:text-6xl font-bold">Jasa Tambah Views Instagram</h1>
+    <p class="text-xl opacity-80 mt-4 max-w-3xl">
+      Tingkatkan jumlah tayangan Instagram Reels & Feed dengan cepat, aman, dan murah.
+      Bantu konten Anda lebih mudah masuk **Explore** dan menjangkau audiens lebih luas.
+    </p>
+
+    <!-- Gambar hero -->
+    <figure class="mt-8 overflow-hidden rounded-2xl border">
+      <picture>
+        <source srcset="/view-instagram.webp" type="image/webp" />
+        <img src="/view-instagram.png" alt="Layanan Views Instagram" loading="eager" class="w-full h-auto" />
+      </picture>
+    </figure>
+  </section>
+
+</DefaultLayout>
