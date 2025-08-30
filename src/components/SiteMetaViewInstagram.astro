@@ -1,105 +1,79 @@
 ---
 /**
- * Meta tag untuk halaman "Views Instagram"
- * Pakai di slot <head> pada layout.
+ * SiteMetaViewInstagram.astro
+ * Meta tags khusus halaman Views Instagram
  */
-interface HrefLang { href: string; hreflang: string }
 interface Props {
-  title?: string;
-  description?: string;
-  keywords?: string[] | string;
-  author?: string;
-  url?: string;
-  siteName?: string;
-  canonical?: string;
-  noindex?: boolean;
-
-  image?: string; imageAlt?: string;
-  imageWidth?: number; imageHeight?: number;
-
-  ogType?: 'website' | 'article' | 'product' | 'profile';
-  twitterCard?: 'summary_large_image' | 'summary';
-  twitterSite?: string; twitterCreator?: string;
-
-  locale?: string; alternateLocales?: string[];
-  hrefLangs?: HrefLang[];
-  themeColor?: string;
+  title?: string
+  description?: string
+  keywords?: string[] | string
+  url?: string
+  siteName?: string
+  canonical?: string
+  noindex?: boolean
+  image?: string
+  imageAlt?: string
+  imageWidth?: number
+  imageHeight?: number
+  ogType?: 'website' | 'article' | 'product'
+  twitterCard?: 'summary_large_image' | 'summary'
+  twitterSite?: string
+  twitterCreator?: string
+  locale?: string
+  themeColor?: string
 }
 
 const {
-  title = 'Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, dan Cepat',
-  description = 'Layanan jasa views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore.',
-  keywords = [
-    'jasa view instagram',
-    'tambah view reels',
-    'view ig aman',
-    'beli view murah',
-    'view Instagram'
-  ],
-  author = 'Aura Digital',
-  url = 'https://auradigital.id/views-instagram/',
-  siteName = 'Aura Digital',
+  title = "Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat",
+  description = "Layanan jasa views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten lebih banyak dilihat dan berpeluang masuk explore.",
+  keywords = ['jasa view instagram','beli views reels','optimasi instagram'],
+  url = "https://auradigital.id/views-instagram/",
+  siteName = "Aura Digital",
   canonical,
   noindex = false,
-
-  image = '/og-views-instagram.png',
-  imageAlt = 'Jasa Views Instagram - Aura Digital',
+  image = "/views-instagram-og.png", // ✅ OG image 1200x630
+  imageAlt = "Layanan Views Instagram Aura Digital",
   imageWidth = 1200,
   imageHeight = 630,
+  ogType = "product",
+  twitterCard = "summary_large_image",
+  twitterSite = "@auradigitalid",
+  twitterCreator = "@auradigitalid",
+  locale = "id_ID",
+  themeColor = "#ffffff",
+}: Props = Astro.props
 
-  ogType = 'product',
-  twitterCard = 'summary_large_image',
-  twitterSite = '@auradigitalid',
-  twitterCreator = '@auradigitalid',
-
-  locale = 'id_ID',
-  alternateLocales = [],
-  hrefLangs = [],
-  themeColor = '#ffffff',
-}: Props = Astro.props;
-
-// — helpers
-const origin = Astro.site?.href?.replace(/\/$/, '') || '';
-const abs = (src: string) =>
-  /^https?:\/\//.test(src) ? src : `${origin}${src.startsWith('/') ? '' : '/'}${src}`;
-
-const pageUrl = (canonical || url).replace(/\/?$/, '/');
-const ogImage = abs(image);
-const kw = Array.isArray(keywords) ? keywords.join(', ') : keywords;
+const pageUrl = (canonical || url).replace(/\/?$/, "/")
 ---
-
+<!-- Primary -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-{kw && <meta name="keywords" content={kw} />}
-<meta name="author" content={author} />
-<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+{Array.isArray(keywords) ? <meta name="keywords" content={keywords.join(", ")} /> : <meta name="keywords" content={keywords} />}
+<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
 <link rel="canonical" href={pageUrl} />
 
-{hrefLangs?.length
-  ? hrefLangs.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)
-  : <link rel="alternate" hreflang="x-default" href={pageUrl} />
-}
-
+<!-- Open Graph -->
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={pageUrl} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:locale" content={locale} />
-<meta property="og:image" content={ogImage} />
-<meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image" content={image} />
 <meta property="og:image:alt" content={imageAlt} />
 <meta property="og:image:width" content={String(imageWidth)} />
 <meta property="og:image:height" content={String(imageHeight)} />
 
+<!-- Twitter -->
 <meta name="twitter:card" content={twitterCard} />
 <meta name="twitter:site" content={twitterSite} />
 <meta name="twitter:creator" content={twitterCreator} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image" content={image} />
 
+<!-- Theming -->
 <meta name="theme-color" content={themeColor} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
