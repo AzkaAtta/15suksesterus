@@ -1,13 +1,13 @@
 ---
 /**
  * SchemaViewInstagram.astro - FIXED VERSION
+ * TANPA Organization schema (karena sudah ada di tempat lain)
  */
 
 interface Offer {
   price: string;
   priceCurrency?: string;
   url?: string;
-  unitText?: string;
   availability?: string;
   eligibleQuantity?: {
     value: string;
@@ -33,7 +33,6 @@ interface Props {
 
 const baseUrl = "https://auradigital.id";
 
-// ✅ GUNAKAN DEFAULT VALUES YANG BENAR
 const {
   pageUrl = `${baseUrl}/views-instagram/`,
   pageTitle = "Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat",
@@ -42,17 +41,16 @@ const {
   imageWebp = `${baseUrl}/views-instagram.webp`,
   serviceName = "Views Instagram",
   serviceUrl = `${baseUrl}/views-instagram/`,
-  serviceType = "Social Media Marketing",
+  serviceType = "SocialMediaMarketing",
   areaServed = "ID",
   offers = [
     {
       price: "200000",
       priceCurrency: "IDR",
       url: `${baseUrl}/views-instagram/?ref=order`,
-      unitText: "per 100 views",
       availability: "https://schema.org/InStock",
       eligibleQuantity: {
-        value: "100",
+        value: "1000",
         unitText: "views"
       }
     },
@@ -60,31 +58,8 @@ const {
   faqItems = [],
 } = Astro.props;
 
-// Bangun graph
+// Bangun graph TANPA Organization
 const graph: any[] = [
-  // Organization
-  {
-    "@type": "Organization",
-    "@id": `${baseUrl}/#organization`,
-    "name": "Aura Digital",
-    "url": baseUrl,
-    "logo": `${baseUrl}/logo.png`,
-    "sameAs": [
-      "https://www.instagram.com/auradigital",
-      "https://www.linkedin.com/company/auradigital"
-    ]
-  },
-  
-  // Website
-  {
-    "@type": "WebSite",
-    "@id": `${baseUrl}/#website`,
-    "url": baseUrl,
-    "name": "Aura Digital",
-    "description": "Jasa Digital Marketing Profesional",
-    "publisher": { "@id": `${baseUrl}/#organization` }
-  },
-  
   // WebPage
   {
     "@type": "WebPage",
@@ -95,8 +70,7 @@ const graph: any[] = [
     "isPartOf": { "@id": `${baseUrl}/#website` },
     "primaryImageOfPage": {
       "@type": "ImageObject",
-      "url": imagePng,
-      "contentUrl": imageWebp
+      "url": imagePng
     }
   },
   
@@ -111,7 +85,7 @@ const graph: any[] = [
     ]
   },
   
-  // Service
+  // Service - Reference ke Organization yang sudah ada
   {
     "@type": "Service",
     "@id": `${serviceUrl}#service`,
@@ -120,7 +94,11 @@ const graph: any[] = [
     "description": description,
     "serviceType": serviceType,
     "areaServed": areaServed,
-    "provider": { "@id": `${baseUrl}/#organization` },
+    "provider": { 
+      "@type": "Organization", 
+      "name": "Aura Digital",
+      "url": baseUrl
+    },
     "offers": offers.map((offer) => ({
       "@type": "Offer",
       "price": offer.price,
@@ -146,7 +124,7 @@ if (faqItems.length > 0) {
   graph.push({
     "@type": "FAQPage",
     "@id": `${pageUrl}#faq`,
-    "mainEntity": faqItems.map((faq, index) => ({
+    "mainEntity": faqItems.map((faq) => ({
       "@type": "Question",
       "name": faq.q,
       "acceptedAnswer": {
