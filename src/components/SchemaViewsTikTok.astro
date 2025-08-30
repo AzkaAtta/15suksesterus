@@ -1,0 +1,125 @@
+---
+/**
+ * SchemaViewsTikTok.astro — Schema lengkap untuk /views-tiktok/
+ * Termasuk: WebPage, BreadcrumbList, Service(+Offer & OfferCatalog), FAQPage (opsional)
+ */
+
+interface Offer { name?: string; price: string; priceCurrency?: string; unitText?: string; url?: string }
+interface FAQItem { q: string; a: string }
+
+const {
+  site = 'https://auradigital.id',
+  pageUrl = 'https://auradigital.id/views-tiktok/',
+  pageTitle = 'Jasa Tambah Views TikTok Aman, Murah & Cepat — Aura Digital',
+  description = 'Tambah views TikTok untuk video & live secara aman dan bertahap. Efektif mendorong algoritma agar tayangan meningkat.',
+  imageWebp = '/views-tiktok.webp',
+  imagePng = '/views-tiktok.png',
+
+  serviceName = 'Views TikTok',
+  serviceType = 'Video Views',
+  areaServed = 'ID',
+
+  // harga dasar per 1 view = 2.000 IDR
+  baseOffer = { price: '2000', priceCurrency: 'IDR', unitText: 'per 1 view', url: 'https://auradigital.id/views-tiktok/?ref=order' } as Offer,
+
+  // contoh paket
+  catalogOffers = [
+    { name: '100 Views TikTok',  price: String(100 * 2000),  priceCurrency: 'IDR', unitText: 'per 100 views',  url: 'https://auradigital.id/views-tiktok/?ref=order&paket=100'  },
+    { name: '500 Views TikTok',  price: String(500 * 2000),  priceCurrency: 'IDR', unitText: 'per 500 views',  url: 'https://auradigital.id/views-tiktok/?ref=order&paket=500'  },
+    { name: '1000 Views TikTok', price: String(1000 * 2000), priceCurrency: 'IDR', unitText: 'per 1000 views', url: 'https://auradigital.id/views-tiktok/?ref=order&paket=1000' },
+  ] as Offer[],
+
+  // FAQ opsional
+  faqItems = [
+    { q: 'Apakah penambahan views TikTok aman?', a: 'Ya, proses bertahap & natural untuk meminimalkan risiko penalti.' },
+    { q: 'Berapa lama prosesnya?', a: 'Biasanya mulai masuk 1–24 jam setelah pembayaran terkonfirmasi.' }
+  ] as FAQItem[]
+} = Astro.props
+
+const graph: any[] = [
+  {
+    '@type': 'WebPage',
+    '@id': `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: pageTitle,
+    description,
+    isPartOf: { '@id': `${site}/#website` },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: `${site}${imagePng}`,
+      contentUrl: `${site}${imageWebp}`,
+      encodingFormat: ['image/png', 'image/webp']
+    }
+  },
+  {
+    '@type': 'BreadcrumbList',
+    '@id': `${pageUrl}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+      { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${site}/layanan/` },
+      { '@type': 'ListItem', position: 3, name: serviceName, item: pageUrl }
+    ]
+  },
+  {
+    '@type': 'Service',
+    '@id': `${pageUrl}#service`,
+    name: serviceName,
+    url: pageUrl,
+    description,
+    serviceType,
+    areaServed,
+    image: {
+      '@type': 'ImageObject',
+      url: `${site}${imagePng}`,
+      contentUrl: `${site}${imageWebp}`,
+      encodingFormat: ['image/png', 'image/webp']
+    },
+    provider: { '@type': 'Organization', name: 'Aura Digital', url: site },
+    offers: [
+      {
+        '@type': 'Offer',
+        price: baseOffer.price,
+        priceCurrency: baseOffer.priceCurrency || 'IDR',
+        unitText: baseOffer.unitText || 'per 1 view',
+        availability: 'https://schema.org/InStock',
+        url: baseOffer.url || pageUrl
+      }
+    ],
+    potentialAction: [
+      { '@type': 'OrderAction',   target: `${pageUrl}?ref=order` },
+      { '@type': 'ContactAction', target: `${site}/kontak/` }
+    ]
+  },
+  {
+    '@type': 'OfferCatalog',
+    '@id': `${pageUrl}#catalog`,
+    name: 'Paket Views TikTok',
+    url: pageUrl,
+    itemListElement: catalogOffers.map((o) => ({
+      '@type': 'Offer',
+      name: o.name,
+      price: o.price,
+      priceCurrency: o.priceCurrency || 'IDR',
+      ...(o.unitText ? { unitText: o.unitText } : {}),
+      url: o.url || pageUrl
+    }))
+  }
+]
+
+// Tambahkan FAQ jika ada
+if (faqItems && faqItems.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    mainEntity: faqItems.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a }
+    }))
+  })
+}
+
+const jsonld = { '@context': 'https://schema.org', '@graph': graph }
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
