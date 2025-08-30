@@ -50,6 +50,14 @@
     <priority>0.8</priority>
   </url>
 
+        <!-- Views TikTok -->
+<url>
+  <loc>https://auradigital.id/views-tiktok/</loc>
+  <lastmod>2025-08-30</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+
   <!-- Tentang Kami -->
   <url>
     <loc>https://auradigital.id/tentang-kami/</loc>
