@@ -1,105 +1,165 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
-import SiteMetaViewInstagram from '@components/SiteMetaViewInstagram.astro'
 import SchemaViewInstagram from '@components/SchemaViewInstagram.astro'
-import { Icon } from 'astro-icon/components' // ← tetap perlu jika ada <Icon />
+import { Icon } from 'astro-icon/components'
+
+// (Opsional) daftar paket harga — mudah diubah
+const packages = [
+  { name: '1.00 Views', price: 'Rp200.000', eta: '12–24 jam', safe: 'Aman & bertahap' },
+  { name: '1.000 Views', price: 'Rp2.000.000', eta: '1–3 hari', safe: 'Aman & bertahap' },
+  { name: '5.000 Views', price: 'Rp9.000.000', eta: '2–5 hari', safe: 'Aman & bertahap' },
+]
 ---
 
-<DefaultLayout title="Views Instagram">
+<DefaultLayout title="Jasa Tambah Views Instagram">
   <Fragment slot="head">
-  <SiteMetaViewInstagram
-    title="Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat"
-    description="Tambah tayangan Reels & Feed secara aman & bertahap. Bantu konten masuk Explore dan raih jangkauan lebih luas."
-    url="/views-instagram/"
-    image="/views-instagram.png"
-    siteName="Aura Digital"
-    ogType="product"
-    keywords={[
-      'jasa view instagram',
-      'tambah view reels',
-      'beli views instagram murah',
-      'optimasi instagram'
-    ]}
-  />
+    <!-- Sesuai permintaan: panggil schema saja -->
+    <SchemaViewInstagram />
+  </Fragment>
 
-  <!-- JSON-LD inline (valid JSON, tidak ada trailing comma) -->
-  {
-    (() => {
-      const data = {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "WebPage",
-            "@id": "/views-instagram/#webpage",
-            "url": "/views-instagram/",
-            "name": "Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat",
-            "description": "Tambah tayangan Reels & Feed secara aman & bertahap. Bantu konten masuk Explore dan raih jangkauan lebih luas.",
-            "primaryImageOfPage": {
-              "@type": "ImageObject",
-              "url": "/views-instagram.png",
-              "contentUrl": "/views-instagram.webp",
-              "encodingFormat": ["image/png", "image/webp"]
-            },
-            "isPartOf": { "@id": "/#website" }
-          },
-          {
-            "@type": "BreadcrumbList",
-            "@id": "/views-instagram/#breadcrumb",
-            "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "/" },
-              { "@type": "ListItem", "position": 2, "name": "Layanan", "item": "/layanan/" },
-              { "@type": "ListItem", "position": 3, "name": "Views Instagram", "item": "/views-instagram/" }
-            ]
-          },
-          {
-            "@type": "Service",
-            "@id": "/views-instagram/#service",
-            "name": "Views Instagram",
-            "url": "/views-instagram/",
-            "description": "Jasa views Instagram untuk Reels & Feed, aman dan bertahap.",
-            "serviceType": "Video Views",
-            "areaServed": "ID",
-            "image": {
-              "@type": "ImageObject",
-              "url": "/views-instagram.png",
-              "contentUrl": "/views-instagram.webp",
-              "encodingFormat": ["image/png", "image/webp"]
-            },
-            "provider": { "@type": "Organization", "name": "Aura Digital", "url": "/" },
-            "offers": [
-              {
-                "@type": "Offer",
-                "price": "200000",
-                "priceCurrency": "IDR",
-                "url": "/views-instagram/?ref=order",
-                "availability": "https://schema.org/InStock"
-              }
-            ],
-            "potentialAction": [
-              { "@type": "OrderAction", "target": "/views-instagram/?ref=order" },
-              { "@type": "ContactAction", "target": "/kontak/" }
-            ]
-          }
-        ]
-      };
-      return <script type="application/ld+json">{JSON.stringify(data)}</script>;
-    })()
-  }
-</Fragment>
-
-  <!-- ===== HERO SECTION ===== -->
+  <!-- ================= HERO ================= -->
   <section class="container my-12">
     <h1 class="text-5xl md:text-6xl font-bold">Jasa Tambah Views Instagram</h1>
     <p class="text-xl opacity-80 mt-4 max-w-3xl">
-      Tingkatkan jumlah tayangan Instagram Reels & Feed dengan cepat, aman, dan murah.
-      Bantu konten Anda lebih mudah masuk <strong>Explore</strong> dan menjangkau audiens lebih luas.
+      Tingkatkan tayangan untuk Reels & Feed secara <strong>aman</strong> dan <strong>bertahap</strong>.
+      Bantu konten menjangkau audiens lebih luas dan berpeluang masuk Explore.
     </p>
 
     <figure class="mt-8 overflow-hidden rounded-2xl border">
       <picture>
         <source srcset="/views-instagram.webp" type="image/webp" />
-        <img src="/views-instagram.png" alt="Layanan Views Instagram" loading="eager" class="w-full h-auto" />
+        <img src="/views-instagram.png" alt="Ilustrasi layanan penambahan views Instagram" loading="eager" class="w-full h-auto" />
       </picture>
     </figure>
+
+    <!-- poin ringkas -->
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <li class="flex items-center gap-2"><Icon name="lucide:shield-check" size="20" /> Aman & bertahap</li>
+      <li class="flex items-center gap-2"><Icon name="lucide:layout-dashboard" size="20" /> Cocok Reels/Feed</li>
+      <li class="flex items-center gap-2"><Icon name="lucide:trending-up" size="20" /> Optimasi jangkauan</li>
+      <li class="flex items-center gap-2"><Icon name="lucide:clock" size="20" /> Estimasi jelas</li>
+    </ul>
   </section>
-</DefaultLayout>
+
+  <!-- ================= PAKET HARGA ================= -->
+  <section class="container my-16" id="harga">
+    <h2 class="text-3xl md:text-4xl font-semibold">Paket Views Instagram</h2>
+    <p class="opacity-80 mt-2 mb-6 max-w-2xl">
+      Pilih paket sesuai kebutuhan. Semua proses dilakukan bertahap untuk menjaga kualitas sinyal algoritma.
+    </p>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {packages.map(p => (
+        <article class="p-6 rounded-2xl border shadow-sm bg-white/60 dark:bg-neutral-900/60">
+          <h3 class="text-xl font-semibold">{p.name}</h3>
+          <p class="mt-2 text-2xl font-bold">{p.price}</p>
+          <ul class="mt-4 space-y-2 text-sm opacity-90">
+            <li class="flex items-center gap-2"><Icon name="lucide:timer" size="18" /> {p.eta}</li>
+            <li class="flex items-center gap-2"><Icon name="lucide:shield" size="18" /> {p.safe}</li>
+            <li class="flex items-center gap-2"><Icon name="lucide:check-circle" size="18" /> Support Reels & Feed</li>
+          </ul>
+          <div class="mt-5 flex gap-3">
+            <a href="/kontak/" class="button">Konsultasi</a>
+            <a href="/layanan/" class="button button--secondary">Lihat layanan lain</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p class="text-sm opacity-70 mt-4">
+      * Waktu proses dapat bervariasi tergantung beban antrian dan kondisi akun/konten.
+    </p>
+  </section>
+
+  <!-- ================= CARA KERJA ================= -->
+  <section class="container my-16" id="cara-kerja">
+    <h2 class="text-3xl md:text-4xl font-semibold">Cara Kerja</h2>
+    <div class="mt-6 grid gap-6 md:grid-cols-3">
+      <div class="p-6 rounded-2xl border bg-white/60 dark:bg-neutral-900/60">
+        <div class="flex items-center gap-3">
+          <Icon name="lucide:list-checks" size="24" />
+          <h3 class="text-lg font-semibold">1) Pilih Paket</h3>
+        </div>
+        <p class="mt-2 opacity-80">Sesuaikan target views dengan kebutuhan promosi kamu.</p>
+      </div>
+      <div class="p-6 rounded-2xl border bg-white/60 dark:bg-neutral-900/60">
+        <div class="flex items-center gap-3">
+          <Icon name="lucide:link" size="24" />
+          <h3 class="text-lg font-semibold">2) Kirim Link Konten</h3>
+        </div>
+        <p class="mt-2 opacity-80">Berikan tautan Reels atau Feed yang akan dioptimasi.</p>
+      </div>
+      <div class="p-6 rounded-2xl border bg-white/60 dark:bg-neutral-900/60">
+        <div class="flex items-center gap-3">
+          <Icon name="lucide:zap" size="24" />
+          <h3 class="text-lg font-semibold">3) Proses Bertahap</h3>
+        </div>
+        <p class="mt-2 opacity-80">Views masuk bertahap agar aman & terlihat natural.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MENGAPA KAMI ================= -->
+  <section class="container my-16" id="keunggulan">
+    <h2 class="text-3xl md:text-4xl font-semibold">Mengapa Memilih Aura Digital</h2>
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+      <article class="p-6 rounded-2xl border bg-white/60 dark:bg-neutral-900/60">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <Icon name="lucide:shield-check" size="20" /> Metode Aman
+        </h3>
+        <p class="mt-2 opacity-80">Penerapan bertahap untuk meminimalkan risiko penurunan mendadak.</p>
+      </article>
+      <article class="p-6 rounded-2xl border bg-white/60 dark:bg-neutral-900/60">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <Icon name="lucide:gauge" size="20" /> Estimasi Jelas
+        </h3>
+        <p class="mt-2 opacity-80">Kisaran waktu pengerjaan disampaikan sejak awal.</p>
+      </article>
+      <article class="p-6 rounded-2xl border bg-white/60 dark:bg-neutral-900/60">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <Icon name="lucide:circle-dot" size="20" /> Fokus Kualitas
+        </h3>
+        <p class="mt-2 opacity-80">Targetnya sinyal positif untuk jangkauan, bukan angka kosong.</p>
+      </article>
+      <article class="p-6 rounded-2xl border bg-white/60 dark:bg-neutral-900/60">
+        <h3 class="text-lg font-semibold flex items-center gap-2">
+          <Icon name="lucide:users" size="20" /> Tim Berpengalaman
+        </h3>
+        <p class="mt-2 opacity-80">Berpengalaman meng-handle berbagai niche & skala.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="container my-16" id="faq">
+    <h2 class="text-3xl md:text-4xl font-semibold">Pertanyaan Umum</h2>
+    <div class="mt-6 space-y-4">
+      <details class="p-5 border rounded-xl bg-white/60 dark:bg-neutral-900/60">
+        <summary class="font-semibold cursor-pointer">Apakah views aman untuk akun?</summary>
+        <p class="mt-2 opacity-80">
+          Ya, kami gunakan metode bertahap. Tetap ikuti pedoman platform (hindari spam, konten melanggar, dll).
+        </p>
+      </details>
+      <details class="p-5 border rounded-xl bg-white/60 dark:bg-neutral-900/60">
+        <summary class="font-semibold cursor-pointer">Support untuk Reels saja atau Feed juga?</summary>
+        <p class="mt-2 opacity-80">Keduanya: Reels & Feed.</p>
+      </details>
+      <details class="p-5 border rounded-xl bg-white/60 dark:bg-neutral-900/60">
+        <summary class="font-semibold cursor-pointer">Apakah ada laporan progres?</summary>
+        <p class="mt-2 opacity-80">Bisa. Kami informasikan progres sesuai paket & antrian.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ================= STRIP AKHIR TANPA WA ================= -->
+  <section class="container my-20">
+    <div class="rounded-2xl border p-6 md:p-10 bg-white/70 dark:bg-neutral-900/70 text-center">
+      <h2 class="text-2xl md:text-3xl font-semibold">Siap dorong jangkauan konten?</h2>
+      <p class="opacity-80 mt-2">Konsultasi gratis untuk tentukan paket & strategi yang paling pas.</p>
+      <div class="mt-5 flex justify-center gap-3">
+        <a href="/kontak/" class="button">Hubungi Kami</a>
+        <a href="/layanan/" class="button button--secondary">Lihat Layanan Lain</a>
+      </div>
+    </div>
+  </section>
+</DefaultLayout></DefaultLayout>
