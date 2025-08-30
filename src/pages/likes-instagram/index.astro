@@ -174,6 +174,117 @@ import SchemaLikesInstagram from '@components/SchemaLikesInstagram.astro'
     </div>
   </section>
 
+  <!-- ============== PERTANYAAN UMUM (ACCORDION) ============== -->
+<section id="faq" class="container my-16">
+  <h2 class="text-3xl md:text-4xl font-semibold">Pertanyaan Umum</h2>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-2">
+    <details class="rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/60 dark:bg-neutral-900/60 p-5 group">
+      <summary class="cursor-pointer text-lg font-semibold marker:hidden list-none flex justify-between">
+        Apakah likes ini aman untuk akun?
+      </summary>
+      <div class="mt-2 opacity-80">
+        Ya. Penambahan bertahap & disesuaikan ritme agar terlihat natural dan tidak menonjol di statistik.
+      </div>
+    </details>
+
+    <details class="rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/60 dark:bg-neutral-900/60 p-5">
+      <summary class="cursor-pointer text-lg font-semibold">Berapa lama prosesnya?</summary>
+      <div class="mt-2 opacity-80">
+        Umumnya 1–24 jam tergantung antrean & target per paket. Request ritme custom bisa disampaikan.
+      </div>
+    </details>
+
+    <details class="rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/60 dark:bg-neutral-900/60 p-5">
+      <summary class="cursor-pointer text-lg font-semibold">Apakah perlu akses akun?</summary>
+      <div class="mt-2 opacity-80">
+        Tidak. Cukup kirimkan URL konten yang ingin didorong like-nya dan pastikan akun tidak di-private.
+      </div>
+    </details>
+
+    <details class="rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/60 dark:bg-neutral-900/60 p-5">
+      <summary class="cursor-pointer text-lg font-semibold">Bagaimana jika ingin jumlah custom?</summary>
+      <div class="mt-2 opacity-80">
+        Bisa. Sampaikan kebutuhanmu via <a class="underline" href="https://wa.me/6281234567890" target="_blank" rel="noopener">WhatsApp</a>, kami sesuaikan rencana & estimasinya.
+      </div>
+    </details>
+  </div>
+</section>
+
+  <!-- ============== TESTIMONI (AUTO SLIDER) ============== -->
+<section id="testimoni" class="container my-16">
+  <h2 class="text-3xl md:text-4xl font-semibold">Apa kata klien?</h2>
+  <p class="mt-3 opacity-80">Cuplikan singkat dari beberapa brand & kreator yang pernah kami bantu.</p>
+
+  <div
+    class="relative mt-8 overflow-hidden rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/60 dark:bg-neutral-900/60"
+    data-like-tsm
+    aria-roledescription="carousel"
+    aria-label="Testimoni pelanggan"
+  >
+    <!-- Track -->
+    <div class="flex transition-transform duration-700 ease-out" data-like-tsm-track>
+      <!-- Slide 1 -->
+      <article class="shrink-0 basis-full p-8 md:p-10 slide">
+        <blockquote class="text-xl leading-relaxed">
+          “Order 1.000 likes untuk Reels produk baru. Naiknya bertahap & rapi, reach ikut naik,
+          masuk Explore kecil. Aman dan on-schedule.”
+        </blockquote>
+        <p class="mt-4 font-semibold">— R., UMKM Skincare Bandung</p>
+      </article>
+      <!-- Slide 2 -->
+      <article class="shrink-0 basis-full p-8 md:p-10 slide">
+        <blockquote class="text-xl leading-relaxed">
+          “Suka organik terlihat natural. Engagement ratio jadi lebih sehat, kerasa efeknya ke
+          postingan berikutnya.”
+        </blockquote>
+        <p class="mt-4 font-semibold">— A., Kreator Konten Edukasi</p>
+      </article>
+      <!-- Slide 3 -->
+      <article class="shrink-0 basis-full p-8 md:p-10 slide">
+        <blockquote class="text-xl leading-relaxed">
+          “Service jelas, harga transparan. Support responsif via WhatsApp, enak buat atur ritme kampanye.”
+        </blockquote>
+        <p class="mt-4 font-semibold">— D., Toko Perlengkapan Outdoor</p>
+      </article>
+    </div>
+
+    <!-- Dots -->
+    <div class="absolute inset-x-0 bottom-3 flex items-center justify-center gap-2">
+      <button class="h-2 w-2 rounded-full bg-neutral-400 aria-[current=true]:w-6 aria-[current=true]:bg-neutral-900 dark:aria-[current=true]:bg-neutral-100" aria-current="true" data-like-tsm-dot="0" aria-label="Slide 1"></button>
+      <button class="h-2 w-2 rounded-full bg-neutral-400 aria-[current=true]:w-6 aria-[current=true]:bg-neutral-900 dark:aria-[current=true]:bg-neutral-100" data-like-tsm-dot="1" aria-label="Slide 2"></button>
+      <button class="h-2 w-2 rounded-full bg-neutral-400 aria-[current=true]:w-6 aria-[current=true]:bg-neutral-900 dark:aria-[current=true]:bg-neutral-100" data-like-tsm-dot="2" aria-label="Slide 3"></button>
+    </div>
+  </div>
+
+  <script>
+    // Auto slider sederhana (tanpa lib)
+    document.addEventListener('astro:page-load', () => {
+      const root = document.querySelector('[data-like-tsm]');
+      if (!root) return;
+      const track = root.querySelector('[data-like-tsm-track]');
+      const slides = Array.from(root.querySelectorAll('.slide'));
+      const dots = Array.from(root.querySelectorAll('[data-like-tsm-dot]'));
+      let i = 0, timer;
+
+      const go = (idx) => {
+        i = (idx + slides.length) % slides.length;
+        track.style.transform = `translateX(-${i * 100}%)`;
+        dots.forEach((d, di) => d.setAttribute('aria-current', di === i ? 'true' : 'false'));
+      };
+
+      const play = () => { timer = setInterval(() => go(i + 1), 4000); };
+      const pause = () => { clearInterval(timer); };
+
+      dots.forEach((d, di) => d.addEventListener('click', () => { pause(); go(di); play(); }));
+      root.addEventListener('mouseenter', pause);
+      root.addEventListener('mouseleave', play);
+
+      go(0); play();
+    });
+  </script>
+</section>
+
   <!-- ============== AJAKAN IKUTI INSTAGRAM (TANPA ICON/CTA WA) ============== -->
   <section class="container my-20">
     <div class="rounded-2xl border shadow-sm bg-gradient-to-r from-purple-600 to-pink-600 text-white p-8">
