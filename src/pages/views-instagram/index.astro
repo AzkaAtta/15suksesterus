@@ -7,88 +7,85 @@ import { Icon } from 'astro-icon/components' // ← tetap perlu jika ada <Icon /
 
 <DefaultLayout title="Views Instagram">
   <Fragment slot="head">
-    <SiteMetaViewInstagram
-      title="Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat"
-      description="Layanan jasa views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore."
-      url="https://auradigital.id/views-instagram/"
-      image="/views-instagram.png"
-      siteName="Aura Digital"
-      ogType="product"
-      keywords={[
-        'jasa view instagram',
-        'tambah view reels',
-        'beli views instagram murah',
-        'jasa sosial media aman',
-        'optimasi instagram'
-      ]}
-    />
+  <SiteMetaViewInstagram
+    title="Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat"
+    description="Tambah tayangan Reels & Feed secara aman & bertahap. Bantu konten masuk Explore dan raih jangkauan lebih luas."
+    url="/views-instagram/"
+    image="/views-instagram.png"
+    siteName="Aura Digital"
+    ogType="product"
+    keywords={[
+      'jasa view instagram',
+      'tambah view reels',
+      'beli views instagram murah',
+      'optimasi instagram'
+    ]}
+  />
 
-    <!-- ✅ Inline JSON-LD -->
-    <script type="application/ld+json">
-      {JSON.stringify({
+  <!-- JSON-LD inline (valid JSON, tidak ada trailing comma) -->
+  {
+    (() => {
+      const data = {
         "@context": "https://schema.org",
         "@graph": [
           {
             "@type": "WebPage",
-            "@id": "https://auradigital.id/views-instagram/#webpage",
-            "url": "https://auradigital.id/views-instagram/",
-            "name": "Jasa Sosial Media: Tambah Views Instagram Reels & Feed Aman, Murah, Cepat",
-            "description": "Jasa tambah views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore.",
-            "isPartOf": { "@id": "https://auradigital.id/#website" },
+            "@id": "/views-instagram/#webpage",
+            "url": "/views-instagram/",
+            "name": "Jasa Tambah Views Instagram Reels & Feed — Aman, Murah, Cepat",
+            "description": "Tambah tayangan Reels & Feed secara aman & bertahap. Bantu konten masuk Explore dan raih jangkauan lebih luas.",
             "primaryImageOfPage": {
               "@type": "ImageObject",
-              "url": "https://auradigital.id/views-instagram.png",
-              "contentUrl": "https://auradigital.id/views-instagram.webp",
-              "encodingFormat": ["image/png","image/webp"]
-            }
+              "url": "/views-instagram.png",
+              "contentUrl": "/views-instagram.webp",
+              "encodingFormat": ["image/png", "image/webp"]
+            },
+            "isPartOf": { "@id": "/#website" }
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://auradigital.id/views-instagram/#breadcrumb",
+            "@id": "/views-instagram/#breadcrumb",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://auradigital.id/" },
-              { "@type": "ListItem", "position": 2, "name": "Layanan", "item": "https://auradigital.id/layanan/" },
-              { "@type": "ListItem", "position": 3, "name": "Views Instagram", "item": "https://auradigital.id/views-instagram/" }
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "/" },
+              { "@type": "ListItem", "position": 2, "name": "Layanan", "item": "/layanan/" },
+              { "@type": "ListItem", "position": 3, "name": "Views Instagram", "item": "/views-instagram/" }
             ]
           },
           {
             "@type": "Service",
-            "@id": "https://auradigital.id/views-instagram/#service",
+            "@id": "/views-instagram/#service",
             "name": "Views Instagram",
-            "url": "https://auradigital.id/views-instagram/",
-            "description": "Jasa tambah views Instagram untuk Reels & Feed. Tambah tayangan real, aman, dan murah agar konten Anda lebih banyak dilihat dan berpeluang masuk explore.",
+            "url": "/views-instagram/",
+            "description": "Jasa views Instagram untuk Reels & Feed, aman dan bertahap.",
             "serviceType": "Video Views",
             "areaServed": "ID",
             "image": {
               "@type": "ImageObject",
-              "url": "https://auradigital.id/views-instagram.png",
-              "contentUrl": "https://auradigital.id/views-instagram.webp",
-              "encodingFormat": ["image/png","image/webp"]
+              "url": "/views-instagram.png",
+              "contentUrl": "/views-instagram.webp",
+              "encodingFormat": ["image/png", "image/webp"]
             },
-            "provider": {
-              "@type": "Organization",
-              "name": "Aura Digital",
-              "url": "https://auradigital.id/"
-            },
+            "provider": { "@type": "Organization", "name": "Aura Digital", "url": "/" },
             "offers": [
               {
                 "@type": "Offer",
-                "price": "2000000",
+                "price": "200000",
                 "priceCurrency": "IDR",
-                "unitText": "per 1000 views",
-                "url": "https://auradigital.id/views-instagram/?ref=order",
+                "url": "/views-instagram/?ref=order",
                 "availability": "https://schema.org/InStock"
               }
             ],
             "potentialAction": [
-              { "@type": "OrderAction", "target": "https://auradigital.id/views-instagram/?ref=order" },
-              { "@type": "ContactAction", "target": "https://auradigital.id/kontak/" }
+              { "@type": "OrderAction", "target": "/views-instagram/?ref=order" },
+              { "@type": "ContactAction", "target": "/kontak/" }
             ]
           }
         ]
-      })}
-    </script>
-  </Fragment>
+      };
+      return <script type="application/ld+json">{JSON.stringify(data)}</script>;
+    })()
+  }
+</Fragment>
 
   <!-- ===== HERO SECTION ===== -->
   <section class="container my-12">
